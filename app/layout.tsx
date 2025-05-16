@@ -40,8 +40,8 @@ export default function RootLayout({
                     <Link href="/learn" className="hover:text-primary">
                       Learn
                     </Link>
-                    <Link href="/games" className="hover:text-primary">
-                      Games
+                    <Link href="/analysis" className="hover:text-primary">
+                      Analysis
                     </Link>
                     <Link href="/videos" className="hover:text-primary">
                       Videos

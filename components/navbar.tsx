@@ -29,7 +29,7 @@ export default function Navbar() {
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Learn", path: "/learn" },
-    { name: "Games", path: "/games" },
+    { name: "Analysis", path: "/analysis" },
     { name: "Videos", path: "/videos" },
     { name: "News", path: "/news" },
     { name: "Watchlist", path: "/watchlist" },
