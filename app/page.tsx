@@ -3,6 +3,7 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Play, Pause, Volume2, Maximize2, BookOpen, GamepadIcon, BarChart3 } from "lucide-react"
+import NewsWidget from "@/components/news-widget"
 
 export default function Home() {
   const trendingStocks = [
@@ -78,31 +79,38 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Intro to Stock Basics */}
+      {/* News and Intro to Stock Basics Section */}
       <section className="w-full py-12 bg-secondary/30 candle-pattern">
         <div className="container px-4 md:px-6">
-          <div className="rounded-xl overflow-hidden bg-card">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center p-6 md:p-8">
-              <div className="relative z-10">
-                <h2 className="text-3xl font-bold mb-4">Intro to Stock Basics</h2>
-                <p className="text-xl text-muted-foreground mb-6">
-                  Start your investing journey with fundamental stock concepts
-                </p>
-                <Button size="lg" className="bg-primary hover:bg-primary/90">
-                  Get Started
-                </Button>
-              </div>
-              <div className="hidden md:block relative z-10">
-                <div className="relative h-64 w-full">
-                  <Image
-                    src="/placeholder.svg?height=400&width=600&text=Stock+Chart"
-                    alt="Stock chart"
-                    width={600}
-                    height={400}
-                    className="object-contain"
-                  />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2">
+              <div className="rounded-xl overflow-hidden bg-card">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center p-6 md:p-8">
+                  <div className="relative z-10">
+                    <h2 className="text-3xl font-bold mb-4">Intro to Stock Basics</h2>
+                    <p className="text-xl text-muted-foreground mb-6">
+                      Start your investing journey with fundamental stock concepts
+                    </p>
+                    <Button size="lg" className="bg-primary hover:bg-primary/90">
+                      Get Started
+                    </Button>
+                  </div>
+                  <div className="hidden md:block relative z-10">
+                    <div className="relative h-64 w-full">
+                      <Image
+                        src="/placeholder.svg?height=400&width=600&text=Stock+Chart"
+                        alt="Stock chart"
+                        width={600}
+                        height={400}
+                        className="object-contain"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
+            </div>
+            <div className="lg:col-span-1">
+              <NewsWidget />
             </div>
           </div>
         </div>

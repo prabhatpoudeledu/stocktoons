@@ -1,16 +1,23 @@
-import { Star, ArrowUp, ArrowDown } from "lucide-react"
+"use client"
+
+import { useState } from "react"
+import { useAuth } from "@/contexts/auth-context"
+import { useRouter } from "next/navigation"
+import { Star, ArrowUp, ArrowDown, AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { Alert, AlertDescription } from "@/components/ui/alert"
 import NewsCard from "@/components/news-card"
+import { toast } from "@/components/ui/use-toast"
+import { Toaster } from "@/components/ui/toaster"
 
-interface StockPageProps {
-  params: {
-    symbol: string
-  }
-}
-
-export default function StockPage({ params }: StockPageProps) {
+// Update the StockPage component to be a client component with watchlist functionality
+export default function StockPage({ params }: { params: { symbol: string } }) {
   const { symbol } = params
+  const { user, isInWatchlist, addToWatchlist, removeFromWatchlist } = useAuth()
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
+  const [notification, setNotification] = useState<{ type: "success" | "error"; message: string } | null>(null)
 
   // Mock data - in a real app, this would come from an API
   const stockData = {
@@ -66,8 +73,56 @@ export default function StockPage({ params }: StockPageProps) {
   const changeSymbol = isPositive ? "+" : ""
   const changeIcon = isPositive ? <ArrowUp className="h-4 w-4" /> : <ArrowDown className="h-4 w-4" />
 
+  const inWatchlist = isInWatchlist(symbol)
+
+  const handleWatchlistAction = async () => {
+    if (!user) {
+      router.push(`/login?redirect=/stocks/${symbol}`)
+      return
+    }
+
+    setIsLoading(true)
+    setNotification(null)
+
+    try {
+      let result
+      if (inWatchlist) {
+        result = await removeFromWatchlist(symbol)
+      } else {
+        result = await addToWatchlist(symbol)
+      }
+
+      if (result.success) {
+        toast({
+          title: result.message,
+          description: inWatchlist
+            ? `${symbol} has been removed from your watchlist`
+            : `${symbol} has been added to your watchlist`,
+        })
+      } else {
+        setNotification({ type: "error", message: result.message })
+      }
+    } catch (error) {
+      setNotification({
+        type: "error",
+        message: "An error occurred. Please try again.",
+      })
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   return (
     <div className="container py-8">
+      <Toaster />
+
+      {notification && (
+        <Alert variant={notification.type === "success" ? "default" : "destructive"} className="mb-4">
+          <AlertCircle className="h-4 w-4" />
+          <AlertDescription>{notification.message}</AlertDescription>
+        </Alert>
+      )}
+
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
         <div>
           <h1 className="text-3xl font-bold">
@@ -84,9 +139,17 @@ export default function StockPage({ params }: StockPageProps) {
             </span>
           </div>
         </div>
-        <Button className="mt-4 md:mt-0 bg-secondary hover:bg-secondary/80">
-          <Star className="mr-2 h-4 w-4 text-yellow-400" />
-          Add to Watchlist
+        <Button
+          className={
+            inWatchlist
+              ? "mt-4 md:mt-0 bg-secondary hover:bg-secondary/80 border border-yellow-500/50"
+              : "mt-4 md:mt-0 bg-secondary hover:bg-secondary/80"
+          }
+          onClick={handleWatchlistAction}
+          disabled={isLoading}
+        >
+          <Star className={`mr-2 h-4 w-4 ${inWatchlist ? "text-yellow-400 fill-yellow-400" : "text-yellow-400"}`} />
+          {inWatchlist ? "Remove from Watchlist" : "Add to Watchlist"}
         </Button>
       </div>
 
