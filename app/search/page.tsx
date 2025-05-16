@@ -36,12 +36,12 @@ export default function SearchPage() {
             <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
             <Input
               placeholder="Enter stock symbol (e.g., AAPL, TSLA)"
-              className="pl-10"
+              className="pl-10 bg-secondary/50 border-border focus:border-primary"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
-          <Button type="submit" className="bg-blue-600 hover:bg-blue-700">
+          <Button type="submit" className="bg-primary hover:bg-primary/90">
             Search
           </Button>
         </div>
@@ -56,7 +56,7 @@ export default function SearchPage() {
         {popularSearches.map((symbol) => (
           <Card
             key={symbol}
-            className="bg-slate-800 hover:bg-slate-700 cursor-pointer transition-colors"
+            className="bg-card border border-border hover:border-primary/50 cursor-pointer transition-colors"
             onClick={() => handlePopularSearch(symbol)}
           >
             <CardContent className="p-4 text-center">
@@ -67,7 +67,7 @@ export default function SearchPage() {
       </div>
 
       <h2 className="text-xl font-bold mb-4">Search Tips</h2>
-      <Card className="bg-slate-800">
+      <Card className="bg-card border border-border">
         <CardContent className="p-6">
           <ul className="list-disc list-inside space-y-2 text-muted-foreground">
             <li>Search by stock symbol (e.g., AAPL for Apple)</li>

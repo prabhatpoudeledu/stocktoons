@@ -6,8 +6,9 @@ import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Search } from "lucide-react"
+import { Search, Menu } from "lucide-react"
 import { useState } from "react"
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 
 export default function Navbar() {
   const pathname = usePathname()
@@ -21,74 +22,82 @@ export default function Navbar() {
     }
   }
 
-  return (
-    <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between">
-        <Link href="/" className="flex items-center">
-          <span className="text-2xl font-bold">StockToons</span>
-        </Link>
+  const navLinks = [
+    { name: "Home", path: "/" },
+    { name: "Learn", path: "/learn" },
+    { name: "Games", path: "/games" },
+    { name: "Videos", path: "/videos" },
+    { name: "Watchlist", path: "/watchlist" },
+  ]
 
-        <div className="hidden md:flex md:w-1/3 lg:w-1/4">
-          <form onSubmit={handleSearch} className="relative w-full">
-            <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+  return (
+    <nav className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container flex h-16 items-center justify-between">
+        <div className="flex items-center">
+          <Sheet>
+            <SheetTrigger asChild className="md:hidden mr-2">
+              <Button variant="ghost" size="icon">
+                <Menu className="h-5 w-5" />
+                <span className="sr-only">Toggle menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left">
+              <SheetHeader>
+                <SheetTitle>StockToons</SheetTitle>
+                <SheetDescription className="text-muted-foreground">Learn, Play, and Invest</SheetDescription>
+              </SheetHeader>
+              <div className="flex flex-col space-y-4 mt-6">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.path}
+                    href={link.path}
+                    className={`text-base font-medium ${
+                      pathname === link.path ? "text-primary" : "text-muted-foreground"
+                    } transition-colors hover:text-primary`}
+                    onClick={() => document.body.click()} // Close sheet on navigation
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+              </div>
+            </SheetContent>
+          </Sheet>
+
+          <Link href="/" className="flex items-center">
+            <span className="text-2xl font-bold">StockToons</span>
+          </Link>
+        </div>
+
+        <div className="hidden md:flex md:items-center md:gap-6 flex-1 justify-center">
+          {navLinks.map((link) => (
+            <Link
+              key={link.path}
+              href={link.path}
+              className={`text-sm font-medium ${
+                pathname === link.path ? "text-primary" : "text-muted-foreground"
+              } transition-colors hover:text-primary`}
+            >
+              {link.name}
+            </Link>
+          ))}
+        </div>
+
+        <div className="flex items-center gap-2">
+          <form onSubmit={handleSearch} className="relative hidden sm:block">
+            <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search stocks or topics"
-              className="w-full pl-8"
+              placeholder="Search stocks"
+              className="w-[180px] pl-9 rounded-full md:w-[200px] lg:w-[300px] bg-secondary/50 border-border focus:border-primary"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </form>
-        </div>
 
-        <div className="hidden md:flex md:items-center md:gap-4">
-          <Link
-            href="/"
-            className={`text-sm font-medium ${
-              pathname === "/" ? "text-primary" : "text-muted-foreground"
-            } transition-colors hover:text-primary`}
-          >
-            Home
-          </Link>
-          <Link
-            href="/learn"
-            className={`text-sm font-medium ${
-              pathname === "/learn" ? "text-primary" : "text-muted-foreground"
-            } transition-colors hover:text-primary`}
-          >
-            Learn
-          </Link>
-          <Link
-            href="/games"
-            className={`text-sm font-medium ${
-              pathname === "/games" ? "text-primary" : "text-muted-foreground"
-            } transition-colors hover:text-primary`}
-          >
-            Games
-          </Link>
-          <Link
-            href="/videos"
-            className={`text-sm font-medium ${
-              pathname === "/videos" ? "text-primary" : "text-muted-foreground"
-            } transition-colors hover:text-primary`}
-          >
-            Videos
-          </Link>
-          <Link
-            href="/watchlist"
-            className={`text-sm font-medium ${
-              pathname === "/watchlist" ? "text-primary" : "text-muted-foreground"
-            } transition-colors hover:text-primary`}
-          >
-            Watchlist
-          </Link>
-          <Button className="ml-4 bg-blue-600 hover:bg-blue-700">Log In</Button>
-        </div>
-
-        <div className="md:hidden">
-          <Button variant="ghost" size="icon" className="mr-2" onClick={() => router.push("/search")}>
+          <Button variant="ghost" size="icon" className="sm:hidden" onClick={() => router.push("/search")}>
             <Search className="h-5 w-5" />
           </Button>
-          <Button className="bg-blue-600 hover:bg-blue-700">Log In</Button>
+
+          <Button className="bg-primary hover:bg-primary/90">Log In</Button>
         </div>
       </div>
     </nav>

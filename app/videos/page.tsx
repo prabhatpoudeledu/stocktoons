@@ -60,7 +60,7 @@ export default function VideosPage() {
 
       {/* Categories */}
       <div className="flex flex-wrap gap-2 mb-8">
-        <Button variant="outline" className="bg-blue-600 hover:bg-blue-700">
+        <Button variant="default" className="bg-primary hover:bg-primary/90">
           All Videos
         </Button>
         {videoCategories.map((category, index) => (
@@ -72,7 +72,7 @@ export default function VideosPage() {
 
       {/* Featured Video */}
       <h2 className="text-2xl font-bold mb-4">Featured</h2>
-      <Card className="bg-slate-800 mb-8 overflow-hidden">
+      <Card className="bg-card mb-8 overflow-hidden border border-border">
         <div className="relative">
           <Image
             src="/placeholder.svg?height=400&width=800&text=Featured+Video"
@@ -82,7 +82,7 @@ export default function VideosPage() {
             className="w-full object-cover"
           />
           <div className="absolute inset-0 flex items-center justify-center">
-            <Button size="icon" className="rounded-full w-16 h-16 bg-blue-600 hover:bg-blue-700">
+            <Button size="icon" className="rounded-full w-16 h-16 bg-primary hover:bg-primary/90">
               <Play className="h-8 w-8" />
             </Button>
           </div>
@@ -101,7 +101,10 @@ export default function VideosPage() {
       <h2 className="text-2xl font-bold mb-4">All Videos</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         {featuredVideos.map((video, index) => (
-          <Card key={index} className="bg-slate-800 overflow-hidden">
+          <Card
+            key={index}
+            className="bg-card overflow-hidden border border-border hover:border-primary/50 transition-colors"
+          >
             <div className="relative">
               <Image
                 src={video.thumbnail || "/placeholder.svg"}
@@ -111,7 +114,7 @@ export default function VideosPage() {
                 className="w-full object-cover"
               />
               <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                <Button size="icon" className="rounded-full bg-blue-600 hover:bg-blue-700">
+                <Button size="icon" className="rounded-full bg-primary hover:bg-primary/90">
                   <Play className="h-6 w-6" />
                 </Button>
               </div>

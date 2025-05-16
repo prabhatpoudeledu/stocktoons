@@ -18,7 +18,7 @@ export default function WatchlistPage() {
     <div className="container py-8">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">My Watchlist</h1>
-        <Button className="bg-blue-600 hover:bg-blue-700">
+        <Button className="bg-primary hover:bg-primary/90">
           <Star className="mr-2 h-4 w-4" />
           Add Stock
         </Button>
@@ -33,12 +33,12 @@ export default function WatchlistPage() {
         </TabsList>
 
         <TabsContent value="all" className="space-y-4">
-          <Card className="bg-slate-800">
-            <CardContent className="p-0">
+          <Card className="bg-card chart-pattern">
+            <CardContent className="p-0 relative z-10">
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="border-b border-muted">
+                    <tr className="border-b border-border">
                       <th className="text-left py-3 px-4">Symbol</th>
                       <th className="text-left py-3 px-4">Name</th>
                       <th className="text-right py-3 px-4">Price</th>
@@ -48,15 +48,19 @@ export default function WatchlistPage() {
                   </thead>
                   <tbody>
                     {watchlistStocks.map((stock) => {
-                      const changeColor = stock.change >= 0 ? "text-green-500" : "text-red-500"
-                      const changeIcon =
-                        stock.change >= 0 ? <ArrowUp className="h-3 w-3" /> : <ArrowDown className="h-3 w-3" />
-                      const changeSymbol = stock.change >= 0 ? "+" : ""
+                      const isPositive = stock.change >= 0
+                      const changeColor = isPositive ? "positive" : "negative"
+                      const changeIcon = isPositive ? (
+                        <ArrowUp className="h-3 w-3" />
+                      ) : (
+                        <ArrowDown className="h-3 w-3" />
+                      )
+                      const changeSymbol = isPositive ? "+" : ""
 
                       return (
-                        <tr key={stock.symbol} className="border-b border-muted hover:bg-slate-700/50">
+                        <tr key={stock.symbol} className="border-b border-border hover:bg-secondary/30">
                           <td className="py-3 px-4">
-                            <Link href={`/stocks/${stock.symbol}`} className="font-bold hover:text-blue-400">
+                            <Link href={`/stocks/${stock.symbol}`} className="font-bold hover:text-primary">
                               {stock.symbol}
                             </Link>
                           </td>
@@ -89,27 +93,27 @@ export default function WatchlistPage() {
         </TabsContent>
 
         <TabsContent value="gainers" className="space-y-4">
-          <Card className="bg-slate-800 p-6">
+          <Card className="bg-card p-6">
             <p>Stocks with positive performance</p>
           </Card>
         </TabsContent>
 
         <TabsContent value="losers" className="space-y-4">
-          <Card className="bg-slate-800 p-6">
+          <Card className="bg-card p-6">
             <p>Stocks with negative performance</p>
           </Card>
         </TabsContent>
 
         <TabsContent value="custom" className="space-y-4">
-          <Card className="bg-slate-800 p-6">
+          <Card className="bg-card p-6">
             <p>Your custom stock lists</p>
           </Card>
         </TabsContent>
       </Tabs>
 
       <h2 className="text-2xl font-bold mt-12 mb-6">Performance Overview</h2>
-      <Card className="bg-slate-800">
-        <CardContent className="p-6 flex items-center justify-center h-64">
+      <Card className="bg-card candle-pattern">
+        <CardContent className="p-6 flex items-center justify-center h-64 relative z-10">
           <p className="text-muted-foreground">[Performance Chart Placeholder]</p>
         </CardContent>
       </Card>
