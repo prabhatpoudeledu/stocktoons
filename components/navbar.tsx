@@ -1,30 +1,23 @@
 "use client"
 
 import type React from "react"
+import { useState } from "react"
 
 import Link from "next/link"
-import Image from "next/image"
 import { usePathname, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Search, Menu, User, LogOut, Settings, Star } from "lucide-react"
-import { useState } from "react"
+import { Search, Menu } from "lucide-react"
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { useAuth } from "@/contexts/auth-context"
+import { UserMenu } from "@/components/user-menu"
+import { DisplayModeToggle } from "@/components/display-mode-toggle"
 
 export default function Navbar() {
   const pathname = usePathname()
   const router = useRouter()
   const [searchQuery, setSearchQuery] = useState("")
-  const { user, logout } = useAuth()
+  const { user } = useAuth()
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -71,6 +64,9 @@ export default function Navbar() {
                     {link.name}
                   </Link>
                 ))}
+                <div className="mt-4 pt-4 border-t border-border">
+                  <DisplayModeToggle />
+                </div>
               </div>
             </SheetContent>
           </Sheet>
@@ -95,6 +91,9 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-2">
+          <div className="hidden md:block mr-2">
+            <DisplayModeToggle variant="minimal" />
+          </div>
           <form onSubmit={handleSearch} className="relative hidden sm:block">
             <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
@@ -110,78 +109,7 @@ export default function Navbar() {
           </Button>
 
           {user ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  className="relative h-10 w-10 rounded-full cursor-pointer focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background hover:ring-2 hover:ring-primary hover:ring-opacity-50"
-                  aria-label="Open user menu"
-                >
-                  <div className="relative h-10 w-10 rounded-full overflow-hidden">
-                    <Image
-                      src={user.avatar || "/placeholder.svg?height=40&width=40&text=U"}
-                      alt={user.name}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-64" align="end" forceMount>
-                <div className="flex items-center justify-start gap-2 p-2">
-                  <div className="relative h-12 w-12 rounded-full overflow-hidden">
-                    <Image
-                      src={user.avatar || "/placeholder.svg?height=48&width=48&text=U"}
-                      alt={user.name}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="flex flex-col space-y-0.5">
-                    <p className="text-sm font-medium leading-none">{user.name}</p>
-                    <p className="text-xs leading-none text-muted-foreground">{user.email}</p>
-                    <div className="mt-1">
-                      <Badge variant="outline" className="bg-primary/20 text-primary border-primary/30 text-xs">
-                        {user.plan === "premium" ? "Premium" : "Free"} Plan
-                      </Badge>
-                    </div>
-                  </div>
-                </div>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  onClick={() => router.push("/profile")}
-                  className="cursor-pointer hover:bg-secondary focus:bg-secondary"
-                >
-                  <User className="mr-2 h-4 w-4" />
-                  <span>My Profile</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => router.push("/watchlist")}
-                  className="cursor-pointer hover:bg-secondary focus:bg-secondary"
-                >
-                  <Star className="mr-2 h-4 w-4" />
-                  <span>My Watchlist</span>
-                  {user.watchlist.length > 0 && (
-                    <Badge className="ml-auto bg-primary text-white text-xs">{user.watchlist.length}</Badge>
-                  )}
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => router.push("/profile?tab=preferences")}
-                  className="cursor-pointer hover:bg-secondary focus:bg-secondary"
-                >
-                  <Settings className="mr-2 h-4 w-4" />
-                  <span>Settings</span>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  onClick={logout}
-                  className="cursor-pointer text-red-500 hover:bg-secondary focus:bg-secondary"
-                >
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span>Log out</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <UserMenu />
           ) : (
             <div className="flex items-center gap-2">
               <Button variant="ghost" onClick={() => router.push("/login")}>

@@ -4,6 +4,7 @@ import type React from "react"
 import { createContext, useContext, useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 
+// Update the User interface to include age
 export interface User {
   id: string
   name: string
@@ -12,6 +13,7 @@ export interface User {
   watchlist: string[]
   joinDate: string
   plan: "free" | "premium"
+  age?: number
 }
 
 // Update the AuthContextType interface to include watchlist management functions
@@ -19,7 +21,12 @@ interface AuthContextType {
   user: User | null
   isLoading: boolean
   login: (email: string, password: string) => Promise<{ success: boolean; message: string }>
-  signup: (name: string, email: string, password: string) => Promise<{ success: boolean; message: string }>
+  signup: (
+    name: string,
+    email: string,
+    password: string,
+    age?: number,
+  ) => Promise<{ success: boolean; message: string }>
   logout: () => void
   updateProfile: (data: Partial<User>) => Promise<{ success: boolean; message: string }>
   addToWatchlist: (symbol: string) => Promise<{ success: boolean; message: string }>
@@ -60,21 +67,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       await new Promise((resolve) => setTimeout(resolve, 1000))
 
       // Mock authentication - in a real app, this would be an API call
-      if (email === "demo@stocktoons.com" && password === "password") {
-        const mockUser: User = {
-          id: "user_1",
-          name: "Demo User",
-          email: "demo@stocktoons.com",
-          avatar: "/placeholder.svg?height=200&width=200&text=DU",
-          watchlist: ["AAPL", "TSLA", "NVDA"],
-          joinDate: "2023-01-15",
-          plan: "free",
-        }
-        setUser(mockUser)
-        localStorage.setItem("stocktoons_user", JSON.stringify(mockUser))
-        return { success: true, message: "Login successful" }
+      // Update the mock user data in the login function
+      const mockUser: User = {
+        id: "user_1",
+        name: "Demo User",
+        email: "demo@stocktoons.com",
+        avatar: "/placeholder.svg?height=200&width=200&text=DU",
+        watchlist: ["AAPL", "TSLA", "NVDA"],
+        joinDate: "2023-01-15",
+        plan: "free",
+        age: 25, // Add default age for demo user
       }
-
+      setUser(mockUser)
+      localStorage.setItem("stocktoons_user", JSON.stringify(mockUser))
+      return { success: true, message: "Login successful" }
       return { success: false, message: "Invalid email or password" }
     } catch (error) {
       console.error("Login error:", error)
@@ -84,7 +90,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
-  const signup = async (name: string, email: string, password: string) => {
+  // Update the signup function to include age
+  const signup = async (name: string, email: string, password: string, age?: number) => {
     setIsLoading(true)
     try {
       // Simulate API call delay
@@ -98,6 +105,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         watchlist: [],
         joinDate: new Date().toISOString().split("T")[0],
         plan: "free",
+        age: age || null,
       }
       setUser(mockUser)
       localStorage.setItem("stocktoons_user", JSON.stringify(mockUser))

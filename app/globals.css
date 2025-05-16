@@ -98,3 +98,92 @@
 .negative {
   color: hsl(var(--negative));
 }
+
+/* Animation utilities */
+.animate-dropdown-in {
+  animation: dropdown-in 0.2s ease-out forwards;
+}
+
+.animate-dropdown-out {
+  animation: dropdown-out 0.2s ease-in forwards;
+}
+
+@keyframes dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes dropdown-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.95);
+  }
+}
+
+/* Add these styles at the end of the file */
+
+/* Kids mode specific styles */
+.kids-mode {
+  --background: 240 30% 20%;
+  --foreground: 210 40% 98%;
+
+  --card: 240 30% 25%;
+  --card-foreground: 210 40% 98%;
+
+  --popover: 240 30% 25%;
+  --popover-foreground: 210 40% 98%;
+
+  --primary: 280 80% 60%;
+  --primary-foreground: 210 40% 98%;
+
+  --secondary: 240 30% 30%;
+  --secondary-foreground: 210 40% 98%;
+
+  --muted: 240 30% 30%;
+  --muted-foreground: 215 20% 75%;
+
+  --accent: 280 80% 60%;
+  --accent-foreground: 210 40% 98%;
+
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+
+  --border: 240 30% 30%;
+  --input: 240 30% 30%;
+  --ring: 280 80% 60%;
+}
+
+/* Fun pattern for kids mode */
+.fun-pattern {
+  background-color: hsl(var(--card));
+  background-image: radial-gradient(circle at 25px 25px, rgba(255, 255, 255, 0.1) 2px, transparent 0),
+    radial-gradient(circle at 75px 75px, rgba(255, 255, 255, 0.1) 2px, transparent 0);
+  background-size: 100px 100px;
+}
+
+/* Colorful cards for kids mode */
+.colorful-card-blue {
+  background: linear-gradient(135deg, #4158d0 0%, #c850c0 100%);
+}
+
+.colorful-card-green {
+  background: linear-gradient(135deg, #43c6ac 0%, #191654 100%);
+}
+
+.colorful-card-orange {
+  background: linear-gradient(135deg, #ffcc70 0%, #c850c0 100%);
+}
+
+.colorful-card-purple {
+  background: linear-gradient(135deg, #8a2387 0%, #e94057 50%, #f27121 100%);
+}

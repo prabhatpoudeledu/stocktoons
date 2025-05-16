@@ -22,6 +22,10 @@ export default function SignupPage() {
   const { signup, isLoading } = useAuth()
   const router = useRouter()
 
+  // Add age state
+  const [age, setAge] = useState<number | null>(null)
+
+  // Update the handleSubmit function to include age
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError("")
@@ -41,7 +45,7 @@ export default function SignupPage() {
       return
     }
 
-    const result = await signup(name, email, password)
+    const result = await signup(name, email, password, age)
     if (result.success) {
       router.push("/profile")
     } else {
@@ -103,6 +107,21 @@ export default function SignupPage() {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 className="bg-secondary/50"
               />
+            </div>
+            {/* Add age input field - find the confirmPassword input and add this after it */}
+            <div className="space-y-2">
+              <Label htmlFor="age">Age (Optional)</Label>
+              <Input
+                id="age"
+                type="number"
+                min="1"
+                max="120"
+                placeholder="Enter your age"
+                value={age || ""}
+                onChange={(e) => setAge(e.target.value ? Number.parseInt(e.target.value) : null)}
+                className="bg-secondary/50"
+              />
+              <p className="text-xs text-muted-foreground">We use this to personalize your experience</p>
             </div>
             <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={isLoading}>
               {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
