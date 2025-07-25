@@ -4,10 +4,10 @@ import { Inter } from "next/font/google"
 import "./globals.css"
 import Navbar from "@/components/navbar"
 import { ThemeProvider } from "@/components/theme-provider"
-import Link from "next/link"
 import { AuthProvider } from "@/contexts/auth-context"
 import { DisplayModeProvider } from "@/contexts/display-mode-context"
 import { Toaster } from "@/components/ui/toaster"
+import Footer from "@/components/footer"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -31,28 +31,7 @@ export default function RootLayout({
               <Navbar />
               <main>{children}</main>
               <Toaster />
-              <footer className="py-6 text-center text-sm text-muted-foreground bg-secondary/50 border-t border-border">
-                <div className="container mx-auto">
-                  <div className="hidden md:flex justify-center space-x-6 mb-4">
-                    <Link href="/" className="hover:text-primary">
-                      Home
-                    </Link>
-                    <Link href="/learn" className="hover:text-primary">
-                      Learn
-                    </Link>
-                    <Link href="/analysis" className="hover:text-primary">
-                      Analysis
-                    </Link>
-                    <Link href="/videos" className="hover:text-primary">
-                      Videos
-                    </Link>
-                    <Link href="/watchlist" className="hover:text-primary">
-                      Watchlist
-                    </Link>
-                  </div>
-                  © 2025 StockToons. Made with curiosity & AI.
-                </div>
-              </footer>
+              <Footer />
             </DisplayModeProvider>
           </AuthProvider>
         </ThemeProvider>

@@ -1,39 +1,41 @@
 "use client"
 
-import type React from "react"
-import { useState } from "react"
-
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Search, Menu } from "lucide-react"
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { useAuth } from "@/contexts/auth-context"
 import { UserMenu } from "@/components/user-menu"
 import { DisplayModeToggle } from "@/components/display-mode-toggle"
+import { useDisplayMode } from "@/contexts/display-mode-context"
+import NavbarSearch from "@/components/navbar-search"
 
 export default function Navbar() {
   const pathname = usePathname()
   const router = useRouter()
-  const [searchQuery, setSearchQuery] = useState("")
   const { user } = useAuth()
+  const { displayMode } = useDisplayMode()
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (searchQuery.trim()) {
-      router.push(`/stocks/${searchQuery.toUpperCase()}`)
-    }
-  }
-
-  const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "Learn", path: "/learn" },
-    { name: "Analysis", path: "/analysis" },
-    { name: "Videos", path: "/videos" },
-    { name: "News", path: "/news" },
-    { name: "Watchlist", path: "/watchlist" },
-  ]
+  // Different nav links based on display mode
+  const navLinks =
+    displayMode === "kids"
+      ? [
+          { name: "Home", path: "/" },
+          { name: "Learn", path: "/learn" },
+          { name: "Games", path: "/games" },
+          { name: "Videos", path: "/videos" },
+          { name: "News", path: "/news" },
+          { name: "Watchlist", path: "/watchlist" },
+        ]
+      : [
+          { name: "Home", path: "/" },
+          { name: "Learn", path: "/learn" },
+          { name: "Analysis", path: "/analysis" },
+          { name: "Videos", path: "/videos" },
+          { name: "News", path: "/news" },
+          { name: "Watchlist", path: "/watchlist" },
+        ]
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -94,15 +96,13 @@ export default function Navbar() {
           <div className="hidden md:block mr-2">
             <DisplayModeToggle variant="minimal" />
           </div>
-          <form onSubmit={handleSearch} className="relative hidden sm:block">
-            <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder="Search stocks"
+
+          <div className="hidden sm:block">
+            <NavbarSearch
               className="w-[180px] pl-9 rounded-full md:w-[200px] lg:w-[300px] bg-secondary/50 border-border focus:border-primary"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search stocks"
             />
-          </form>
+          </div>
 
           <Button variant="ghost" size="icon" className="sm:hidden" onClick={() => router.push("/search")}>
             <Search className="h-5 w-5" />

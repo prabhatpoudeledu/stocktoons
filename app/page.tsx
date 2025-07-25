@@ -1,22 +1,15 @@
 "use client"
 
 import { useDisplayMode } from "@/contexts/display-mode-context"
-import AdultHomePage from "@/components/home-page-adult"
-import KidsHomePage from "@/components/home-page-kids"
-import { DisplayModeToggle } from "@/components/display-mode-toggle"
+import { HomePageAdult } from "@/components/home-page-adult"
+import { HomePageKids } from "@/components/home-page-kids"
 
-export default function Home() {
+export default function HomePage() {
   const { displayMode } = useDisplayMode()
 
-  return (
-    <>
-      <div className="container py-4">
-        <div className="flex justify-end">
-          <DisplayModeToggle />
-        </div>
-      </div>
+  if (displayMode === "kids") {
+    return <HomePageKids />
+  }
 
-      {displayMode === "kids" ? <KidsHomePage /> : <AdultHomePage />}
-    </>
-  )
+  return <HomePageAdult />
 }
