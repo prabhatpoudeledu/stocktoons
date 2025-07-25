@@ -4,33 +4,31 @@
 
 @layer base {
   :root {
-    --background: 215 28% 17%;
-    --foreground: 210 40% 98%;
-    --card: 217 33% 20%;
-    --card-foreground: 210 40% 98%;
-    --popover: 217 33% 20%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 100% 52%;
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
     --primary-foreground: 210 40% 98%;
-    --secondary: 217 19% 27%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217 19% 27%;
-    --muted-foreground: 215 20% 75%;
-    --accent: 217 19% 27%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    --border: 217 19% 27%;
-    --input: 217 19% 27%;
-    --ring: 224 76% 48%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
     --radius: 0.5rem;
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --positive: 142 76% 36%;
-    --negative: 0 84% 60%;
   }
 
   .dark {
@@ -40,24 +38,61 @@
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 84% 4.9%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
     --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 222.2 84% 4.9%;
+    --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --ring: 224.3 76.3% 94.1%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+  }
+
+  /* Kids Mode Theme */
+  .kids-mode {
+    --background: 120 60% 97%;
+    --foreground: 120 100% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 120 100% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 120 100% 15%;
+    --primary: 120 60% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 120 30% 90%;
+    --secondary-foreground: 120 100% 15%;
+    --muted: 120 30% 95%;
+    --muted-foreground: 120 20% 40%;
+    --accent: 200 60% 85%;
+    --accent-foreground: 120 100% 15%;
+    --destructive: 0 70% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 120 30% 85%;
+    --input: 120 30% 90%;
+    --ring: 120 60% 50%;
+    --radius: 0.75rem;
+
+    /* Kids-friendly chart colors (light green/red candles) */
+    --chart-1: 120 60% 65%; /* Light green for positive */
+    --chart-2: 0 60% 70%; /* Light red for negative */
+    --chart-3: 200 50% 70%; /* Light blue */
+    --chart-4: 45 70% 70%; /* Light yellow */
+    --chart-5: 280 50% 70%; /* Light purple */
+
+    /* Stock candle colors */
+    --candle-green: 120 60% 65%;
+    --candle-red: 0 60% 70%;
+    --candle-green-dark: 120 70% 45%;
+    --candle-red-dark: 0 70% 50%;
   }
 }
 
@@ -69,6 +104,11 @@
     @apply bg-background text-foreground;
     background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18v64h64V18H11zm60 60H15V22h56v56z' fill='%23232f46' fill-opacity='0.1'/%3E%3C/svg%3E");
     background-attachment: fixed;
+  }
+
+  /* Kids mode body styling */
+  body.kids-mode {
+    @apply bg-gradient-to-br from-green-50 via-blue-50 to-purple-50;
   }
 }
 
@@ -152,52 +192,79 @@
   }
 }
 
-/* Kids mode specific styles */
-.kids-mode {
-  --background: 240 30% 20%;
-  --foreground: 210 40% 98%;
-  --card: 240 30% 25%;
-  --card-foreground: 210 40% 98%;
-  --popover: 240 30% 25%;
-  --popover-foreground: 210 40% 98%;
-  --primary: 280 80% 60%;
-  --primary-foreground: 210 40% 98%;
-  --secondary: 240 30% 30%;
-  --secondary-foreground: 210 40% 98%;
-  --muted: 240 30% 30%;
-  --muted-foreground: 215 20% 75%;
-  --accent: 280 80% 60%;
-  --accent-foreground: 210 40% 98%;
-  --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 210 40% 98%;
-  --border: 240 30% 30%;
-  --input: 240 30% 30%;
-  --ring: 280 80% 60%;
+/* Kids Mode Specific Styles */
+.kids-mode .card {
+  @apply shadow-lg border-2 border-green-200 rounded-xl;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 253, 244, 0.9) 100%);
 }
 
-/* Fun pattern for kids mode */
-.fun-pattern {
-  background-color: hsl(var(--card));
-  background-image: radial-gradient(circle at 25px 25px, rgba(255, 255, 255, 0.1) 2px, transparent 0),
-    radial-gradient(circle at 75px 75px, rgba(255, 255, 255, 0.1) 2px, transparent 0);
-  background-size: 100px 100px;
+.kids-mode .button-primary {
+  @apply bg-gradient-to-r from-green-400 to-blue-400 hover:from-green-500 hover:to-blue-500 text-white font-bold rounded-full shadow-lg transform hover:scale-105 transition-all duration-200;
 }
 
-/* Colorful cards for kids mode */
-.colorful-card-blue {
-  background: linear-gradient(135deg, #4158d0 0%, #c850c0 100%);
+.kids-mode .button-secondary {
+  @apply bg-gradient-to-r from-purple-200 to-pink-200 hover:from-purple-300 hover:to-pink-300 text-purple-800 font-semibold rounded-full shadow-md transform hover:scale-105 transition-all duration-200;
 }
 
-.colorful-card-green {
-  background: linear-gradient(135deg, #43c6ac 0%, #191654 100%);
+/* Stock price colors for kids mode */
+.kids-mode .price-positive {
+  @apply text-green-600 font-bold;
 }
 
-.colorful-card-orange {
-  background: linear-gradient(135deg, #ffcc70 0%, #c850c0 100%);
+.kids-mode .price-negative {
+  @apply text-red-500 font-bold;
 }
 
-.colorful-card-purple {
-  background: linear-gradient(135deg, #8a2387 0%, #e94057 50%, #f27121 100%);
+/* Fun animations for kids mode */
+.kids-mode .bounce-gentle {
+  animation: bounce-gentle 2s infinite;
+}
+
+@keyframes bounce-gentle {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-5px);
+  }
+  60% {
+    transform: translateY(-3px);
+  }
+}
+
+.kids-mode .pulse-soft {
+  animation: pulse-soft 2s infinite;
+}
+
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* Kids-friendly scrollbar */
+.kids-mode ::-webkit-scrollbar {
+  width: 8px;
+}
+
+.kids-mode ::-webkit-scrollbar-track {
+  @apply bg-green-100 rounded-full;
+}
+
+.kids-mode ::-webkit-scrollbar-thumb {
+  @apply bg-gradient-to-b from-green-400 to-blue-400 rounded-full;
+}
+
+.kids-mode ::-webkit-scrollbar-thumb:hover {
+  @apply from-green-500 to-blue-500;
 }
 
 /* Kids theme specific styles */

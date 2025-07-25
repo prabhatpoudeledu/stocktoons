@@ -8,6 +8,7 @@ import { AuthProvider } from "@/contexts/auth-context"
 import { DisplayModeProvider } from "@/contexts/display-mode-context"
 import { Toaster } from "@/components/ui/toaster"
 import Footer from "@/components/footer"
+import { KidsThemeWrapper } from "@/components/kids-theme-wrapper"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -25,13 +26,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="dark">
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           <AuthProvider>
             <DisplayModeProvider>
-              <Navbar />
-              <main>{children}</main>
-              <Toaster />
-              <Footer />
+              <KidsThemeWrapper>
+                <Navbar />
+                <main>{children}</main>
+                <Toaster />
+                <Footer />
+              </KidsThemeWrapper>
             </DisplayModeProvider>
           </AuthProvider>
         </ThemeProvider>

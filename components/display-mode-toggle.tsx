@@ -2,24 +2,36 @@
 
 import { Button } from "@/components/ui/button"
 import { useDisplayMode } from "@/contexts/display-mode-context"
-import { School, Briefcase } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
+import { Baby, User } from "lucide-react"
 
-export function DisplayModeToggle({ variant = "default" }: { variant?: "default" | "minimal" }) {
+interface DisplayModeToggleProps {
+  variant?: "default" | "minimal"
+}
+
+export function DisplayModeToggle({ variant = "default" }: DisplayModeToggleProps) {
   const { displayMode, toggleDisplayMode } = useDisplayMode()
 
   if (variant === "minimal") {
     return (
-      <Button variant="ghost" size="sm" onClick={toggleDisplayMode} className="flex items-center gap-1">
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={toggleDisplayMode}
+        className={`flex items-center gap-2 ${
+          displayMode === "kids"
+            ? "text-green-700 hover:bg-green-100 hover:text-green-800"
+            : "text-muted-foreground hover:text-foreground"
+        }`}
+      >
         {displayMode === "kids" ? (
           <>
-            <School className="h-4 w-4" />
-            <span className="sr-only">Switch to Adult Mode</span>
+            <Baby className="h-4 w-4" />
+            <span className="hidden sm:inline">Kids</span>
           </>
         ) : (
           <>
-            <School className="h-4 w-4" />
-            <span className="sr-only">Switch to Kids Mode</span>
+            <User className="h-4 w-4" />
+            <span className="hidden sm:inline">Adult</span>
           </>
         )}
       </Button>
@@ -27,26 +39,32 @@ export function DisplayModeToggle({ variant = "default" }: { variant?: "default"
   }
 
   return (
-    <div className="flex items-center gap-2">
-      <Button variant="outline" size="sm" onClick={toggleDisplayMode} className="flex items-center gap-2">
+    <div className="flex items-center space-x-2">
+      <span className={`text-sm font-medium ${displayMode === "kids" ? "text-green-700" : "text-muted-foreground"}`}>
+        Mode:
+      </span>
+      <Button
+        variant={displayMode === "kids" ? "default" : "outline"}
+        size="sm"
+        onClick={toggleDisplayMode}
+        className={`flex items-center gap-2 transition-all duration-200 ${
+          displayMode === "kids"
+            ? "bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-bold shadow-lg"
+            : "hover:bg-primary hover:text-primary-foreground"
+        }`}
+      >
         {displayMode === "kids" ? (
           <>
-            <Briefcase className="h-4 w-4" />
-            <span>Switch to Adult Mode</span>
+            <Baby className="h-4 w-4" />
+            Kids Mode
           </>
         ) : (
           <>
-            <School className="h-4 w-4" />
-            <span>Switch to Kids Mode</span>
+            <User className="h-4 w-4" />
+            Adult Mode
           </>
         )}
       </Button>
-
-      {displayMode === "kids" && (
-        <Badge variant="outline" className="bg-green-900/20 text-green-400 border-green-800">
-          Kids Mode
-        </Badge>
-      )}
     </div>
   )
 }
