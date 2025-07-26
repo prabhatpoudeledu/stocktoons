@@ -1,40 +1,114 @@
-"use client"
-
 import Link from "next/link"
-import { useDisplayMode } from "@/contexts/display-mode-context"
+import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from "lucide-react"
 
-export default function Footer() {
-  const { displayMode } = useDisplayMode()
-
-  const footerLinks =
-    displayMode === "kids"
-      ? [
-          { name: "Home", path: "/" },
-          { name: "Learn", path: "/learn" },
-          { name: "Games", path: "/games" },
-          { name: "Videos", path: "/videos" },
-          { name: "Watchlist", path: "/watchlist" },
-        ]
-      : [
-          { name: "Home", path: "/" },
-          { name: "Learn", path: "/learn" },
-          { name: "Analysis", path: "/analysis" },
-          { name: "Videos", path: "/videos" },
-          { name: "Watchlist", path: "/watchlist" },
-        ]
-
+export function Footer() {
   return (
-    <footer className="py-6 text-center text-sm text-muted-foreground bg-secondary/50 border-t border-border">
-      <div className="container mx-auto">
-        <div className="hidden md:flex justify-center space-x-6 mb-4">
-          {footerLinks.map((link) => (
-            <Link key={link.path} href={link.path} className="hover:text-primary">
-              {link.name}
-            </Link>
-          ))}
+    <footer className="bg-gradient-to-r from-green-600 via-blue-600 to-purple-600 text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Company Info */}
+          <div className="space-y-4">
+            <h3 className="text-xl font-bold">StockToons</h3>
+            <p className="text-green-100">
+              Making stock market education fun and accessible for everyone, from kids to adults.
+            </p>
+            <div className="flex space-x-4">
+              <Facebook className="h-5 w-5 hover:text-green-200 cursor-pointer transition-colors" />
+              <Twitter className="h-5 w-5 hover:text-green-200 cursor-pointer transition-colors" />
+              <Instagram className="h-5 w-5 hover:text-green-200 cursor-pointer transition-colors" />
+              <Linkedin className="h-5 w-5 hover:text-green-200 cursor-pointer transition-colors" />
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div className="space-y-4">
+            <h4 className="text-lg font-semibold text-green-200">Quick Links</h4>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/stocks/categories" className="hover:text-green-200 transition-colors">
+                  Browse Stocks
+                </Link>
+              </li>
+              <li>
+                <Link href="/analysis" className="hover:text-green-200 transition-colors">
+                  Market Analysis
+                </Link>
+              </li>
+              <li>
+                <Link href="/news" className="hover:text-green-200 transition-colors">
+                  Latest News
+                </Link>
+              </li>
+              <li>
+                <Link href="/learn" className="hover:text-green-200 transition-colors">
+                  Learning Center
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Kids Section */}
+          <div className="space-y-4">
+            <h4 className="text-lg font-semibold text-green-200">For Kids</h4>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/kids/simulator" className="hover:text-green-200 transition-colors">
+                  Stock Simulator
+                </Link>
+              </li>
+              <li>
+                <Link href="/games" className="hover:text-green-200 transition-colors">
+                  Educational Games
+                </Link>
+              </li>
+              <li>
+                <Link href="/videos" className="hover:text-green-200 transition-colors">
+                  Learning Videos
+                </Link>
+              </li>
+              <li>
+                <Link href="/kids/stocks/categories" className="hover:text-green-200 transition-colors">
+                  Kid-Friendly Stocks
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Contact Info */}
+          <div className="space-y-4">
+            <h4 className="text-lg font-semibold text-green-200">Contact Us</h4>
+            <div className="space-y-2">
+              <div className="flex items-center space-x-2">
+                <Mail className="h-4 w-4" />
+                <span className="text-sm">support@stocktoons.com</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Phone className="h-4 w-4" />
+                <span className="text-sm">1-800-STOCKS</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <MapPin className="h-4 w-4" />
+                <span className="text-sm">New York, NY</span>
+              </div>
+            </div>
+          </div>
         </div>
-        © 2025 StockToons. Made with curiosity & AI.
+
+        <div className="border-t border-green-400 mt-8 pt-8 text-center">
+          <p className="text-green-100">
+            &copy; 2024 StockToons. All rights reserved. |
+            <Link href="/privacy" className="hover:text-green-200 ml-1">
+              Privacy Policy
+            </Link>{" "}
+            |
+            <Link href="/terms" className="hover:text-green-200 ml-1">
+              Terms of Service
+            </Link>
+          </p>
+        </div>
       </div>
     </footer>
   )
 }
+
+export default Footer

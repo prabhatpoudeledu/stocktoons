@@ -1,178 +1,192 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
-import { usePathname, useRouter } from "next/navigation"
+import { usePathname } from "next/navigation"
+import { Menu, Search, TrendingUp, BarChart3, Newspaper, User, Home } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Search, Menu } from "lucide-react"
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
-import { useAuth } from "@/contexts/auth-context"
-import { UserMenu } from "@/components/user-menu"
-import { DisplayModeToggle } from "@/components/display-mode-toggle"
+import { Input } from "@/components/ui/input"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { UserMenu } from "./user-menu"
+import { DisplayModeToggle } from "./display-mode-toggle"
 import { useDisplayMode } from "@/contexts/display-mode-context"
-import NavbarSearch from "@/components/navbar-search"
+import { useAuth } from "@/contexts/auth-context"
+
+const navigation = [
+  { name: "Home", href: "/", icon: Home },
+  { name: "Stocks", href: "/stocks/categories", icon: TrendingUp },
+  { name: "Analysis", href: "/analysis", icon: BarChart3 },
+  { name: "News", href: "/news", icon: Newspaper },
+]
+
+const kidsNavigation = [
+  { name: "Home", href: "/", icon: Home },
+  { name: "Stocks", href: "/kids/stocks/categories", icon: TrendingUp },
+  { name: "Games", href: "/games", icon: BarChart3 },
+  { name: "News", href: "/news", icon: Newspaper },
+]
 
 export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
-  const router = useRouter()
-  const { user } = useAuth()
   const { displayMode } = useDisplayMode()
-
-  // Different nav links based on display mode
-  const navLinks =
-    displayMode === "kids"
-      ? [
-          { name: "Home", path: "/" },
-          { name: "Learn", path: "/learn" },
-          { name: "Games", path: "/games" },
-          { name: "Videos", path: "/videos" },
-          { name: "News", path: "/news" },
-          { name: "Watchlist", path: "/watchlist" },
-        ]
-      : [
-          { name: "Home", path: "/" },
-          { name: "Learn", path: "/learn" },
-          { name: "Analysis", path: "/analysis" },
-          { name: "Videos", path: "/videos" },
-          { name: "News", path: "/news" },
-          { name: "Watchlist", path: "/watchlist" },
-        ]
+  const { user } = useAuth()
+  const isKidsMode = displayMode === "kids"
+  const navItems = isKidsMode ? kidsNavigation : navigation
 
   return (
-    <nav
-      className={`sticky top-0 z-50 w-full border-b ${
-        displayMode === "kids"
-          ? "border-green-200 bg-gradient-to-r from-green-50 to-blue-50 shadow-sm"
-          : "border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
-      }`}
-    >
-      <div className="container flex h-16 items-center justify-between">
-        <div className="flex items-center">
-          <Sheet>
-            <SheetTrigger asChild className="md:hidden mr-2">
-              <Button variant="ghost" size="icon" className={displayMode === "kids" ? "hover:bg-green-100" : ""}>
-                <Menu className={`h-5 w-5 ${displayMode === "kids" ? "text-green-700" : ""}`} />
-                <span className="sr-only">Toggle menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent
-              side="left"
-              className={displayMode === "kids" ? "bg-gradient-to-b from-green-50 to-blue-50" : ""}
-            >
-              <SheetHeader>
-                <SheetTitle className={displayMode === "kids" ? "text-green-700 text-xl font-bold" : ""}>
-                  {displayMode === "kids" ? "StockToons Kids" : "StockToons"}
-                </SheetTitle>
-                <SheetDescription className={displayMode === "kids" ? "text-green-600" : "text-muted-foreground"}>
-                  {displayMode === "kids" ? "Learn about money in a fun way!" : "Learn, Play, and Invest"}
-                </SheetDescription>
-              </SheetHeader>
-              <div className="flex flex-col space-y-4 mt-6">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.path}
-                    href={link.path}
-                    className={`text-base font-medium transition-colors ${
-                      displayMode === "kids"
-                        ? pathname === link.path
-                          ? "text-green-700 font-bold"
-                          : "text-green-600 hover:text-green-700"
-                        : pathname === link.path
-                          ? "text-primary"
-                          : "text-muted-foreground hover:text-primary"
-                    }`}
-                    onClick={() => document.body.click()} // Close sheet on navigation
-                  >
-                    {link.name}
-                  </Link>
-                ))}
-                <div className={`mt-4 pt-4 ${displayMode === "kids" ? "border-green-200" : "border-border"} border-t`}>
-                  <DisplayModeToggle />
-                </div>
+    <nav className="sticky top-0 z-50 border-b bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 border-green-300 backdrop-blur-md shadow-lg">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between">
+          {/* Logo */}
+          <div className="flex items-center">
+            <Link href="/" className="flex items-center space-x-2">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/20 text-white">
+                <TrendingUp className="h-5 w-5" />
               </div>
-            </SheetContent>
-          </Sheet>
-
-          <Link href="/" className="flex items-center">
-            <span
-              className={`text-2xl font-bold ${
-                displayMode === "kids"
-                  ? "text-transparent bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text"
-                  : ""
-              }`}
-            >
-              {displayMode === "kids" ? "StockToons Kids" : "StockToons"}
-            </span>
-          </Link>
-        </div>
-
-        <div className="hidden md:flex md:items-center md:gap-6 flex-1 justify-center">
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              href={link.path}
-              className={`text-sm font-medium transition-colors ${
-                displayMode === "kids"
-                  ? pathname === link.path
-                    ? "text-green-700 font-bold"
-                    : "text-green-600 hover:text-green-700"
-                  : pathname === link.path
-                    ? "text-primary"
-                    : "text-muted-foreground hover:text-primary"
-              }`}
-            >
-              {link.name}
+              <div className="flex flex-col">
+                <span className="text-xl font-bold bg-gradient-to-r from-white to-cyan-200 bg-clip-text text-transparent">
+                  {isKidsMode ? "StockToons Kids" : "StockToons"}
+                </span>
+                {isKidsMode && <span className="text-xs text-white/80 -mt-1">Learn about money in a fun way!</span>}
+              </div>
             </Link>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-2">
-          <div className="hidden md:block mr-2">
-            <DisplayModeToggle variant="minimal" />
           </div>
 
-          <div className="hidden sm:block">
-            <NavbarSearch
-              className={`w-[180px] pl-9 rounded-full md:w-[200px] lg:w-[300px] ${
-                displayMode === "kids"
-                  ? "bg-white/80 border-green-200 focus:border-green-400 placeholder:text-green-500"
-                  : "bg-secondary/50 border-border focus:border-primary"
-              }`}
-              placeholder={displayMode === "kids" ? "Search for stocks!" : "Search stocks"}
-            />
-          </div>
+          {/* Desktop Navigation */}
+          <div className="hidden md:block">
+            <div className="ml-10 flex items-baseline space-x-4">
+              {navItems.map((item) => {
+                const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href))
 
-          <Button
-            variant="ghost"
-            size="icon"
-            className={`sm:hidden ${displayMode === "kids" ? "hover:bg-green-100" : ""}`}
-            onClick={() => router.push("/search")}
-          >
-            <Search className={`h-5 w-5 ${displayMode === "kids" ? "text-green-700" : ""}`} />
-          </Button>
-
-          {user ? (
-            <UserMenu />
-          ) : (
-            <div className="flex items-center gap-2">
-              <Button
-                variant="ghost"
-                className={displayMode === "kids" ? "text-green-700 hover:bg-green-100" : ""}
-                onClick={() => router.push("/login")}
-              >
-                Login
-              </Button>
-              <Button
-                className={
-                  displayMode === "kids"
-                    ? "bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-bold"
-                    : "bg-primary hover:bg-primary/90"
-                }
-                onClick={() => router.push("/signup")}
-              >
-                Sign Up
-              </Button>
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={`flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                      isActive ? "bg-white/20 text-white shadow-lg" : "text-white/90 hover:bg-white/10 hover:text-white"
+                    }`}
+                  >
+                    <item.icon className="h-4 w-4" />
+                    <span>{item.name}</span>
+                  </Link>
+                )
+              })}
             </div>
-          )}
+          </div>
+
+          {/* Search Bar */}
+          <div className="hidden lg:block flex-1 max-w-md mx-8">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/70" />
+              <Input
+                type="search"
+                placeholder={isKidsMode ? "Search for stocks! 🔍" : "Search stocks, news..."}
+                className="pl-10 bg-white/20 border-white/30 text-white placeholder:text-white/70 focus:bg-white/30 backdrop-blur-sm"
+              />
+            </div>
+          </div>
+
+          {/* Right side items */}
+          <div className="flex items-center space-x-4">
+            <DisplayModeToggle />
+
+            {user ? (
+              <UserMenu />
+            ) : (
+              <div className="hidden md:flex items-center space-x-2">
+                <Link href="/login">
+                  <Button variant="ghost" size="sm" className="text-white hover:bg-white/10 hover:text-white">
+                    Sign In
+                  </Button>
+                </Link>
+                <Link href="/signup">
+                  <Button size="sm" className="bg-white/20 text-white hover:bg-white/30 border border-white/30">
+                    Sign Up
+                  </Button>
+                </Link>
+              </div>
+            )}
+
+            {/* Mobile menu button */}
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="sm" className="md:hidden text-white hover:bg-white/10">
+                  <Menu className="h-5 w-5" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-80 bg-gradient-to-b from-green-400 to-blue-400 border-green-300">
+                <div className="flex flex-col h-full">
+                  {/* Mobile Header */}
+                  <div className="flex items-center justify-between pb-6 border-b border-white/20">
+                    <div className="flex items-center space-x-2">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/20">
+                        <TrendingUp className="h-5 w-5 text-white" />
+                      </div>
+                      <div>
+                        <span className="text-lg font-bold text-white">
+                          {isKidsMode ? "StockToons Kids" : "StockToons"}
+                        </span>
+                        {isKidsMode && <p className="text-xs text-white/80">Learn about money in a fun way!</p>}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Mobile Search */}
+                  <div className="py-4">
+                    <div className="relative">
+                      <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/70" />
+                      <Input
+                        type="search"
+                        placeholder={isKidsMode ? "Search for stocks! 🔍" : "Search stocks, news..."}
+                        className="pl-10 bg-white/20 border-white/30 text-white placeholder:text-white/70 focus:bg-white/30"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Mobile Navigation */}
+                  <div className="flex-1 space-y-2">
+                    {navItems.map((item) => {
+                      const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href))
+
+                      return (
+                        <Link
+                          key={item.name}
+                          href={item.href}
+                          onClick={() => setIsOpen(false)}
+                          className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 ${
+                            isActive
+                              ? "bg-white/20 text-white shadow-lg"
+                              : "text-white/90 hover:bg-white/10 hover:text-white"
+                          }`}
+                        >
+                          <item.icon className="h-5 w-5" />
+                          <span>{item.name}</span>
+                        </Link>
+                      )
+                    })}
+                  </div>
+
+                  {/* Mobile Auth */}
+                  {!user && (
+                    <div className="pt-6 border-t border-white/20 space-y-3">
+                      <Link href="/login" onClick={() => setIsOpen(false)}>
+                        <Button variant="ghost" className="w-full justify-start text-white hover:bg-white/10">
+                          <User className="h-4 w-4 mr-2" />
+                          Sign In
+                        </Button>
+                      </Link>
+                      <Link href="/signup" onClick={() => setIsOpen(false)}>
+                        <Button className="w-full bg-white/20 text-white hover:bg-white/30 border border-white/30">
+                          Sign Up
+                        </Button>
+                      </Link>
+                    </div>
+                  )}
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
       </div>
     </nav>

@@ -15,15 +15,13 @@ export function KidsThemeWrapper({ children }: KidsThemeWrapperProps) {
   useEffect(() => {
     const body = document.body
 
-    if (displayMode === "kids") {
-      body.classList.add("kids-mode")
-      body.classList.remove("dark")
-    } else {
-      body.classList.remove("kids-mode")
-    }
+    // Always apply the colorful kids theme
+    body.classList.add("kids-mode")
+    body.classList.remove("dark")
 
     return () => {
-      body.classList.remove("kids-mode")
+      // Keep the kids theme even on cleanup
+      body.classList.add("kids-mode")
     }
   }, [displayMode])
 

@@ -2,38 +2,41 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
-import Navbar from "@/components/navbar"
 import { ThemeProvider } from "@/components/theme-provider"
 import { AuthProvider } from "@/contexts/auth-context"
 import { DisplayModeProvider } from "@/contexts/display-mode-context"
-import { Toaster } from "@/components/ui/toaster"
-import Footer from "@/components/footer"
 import { KidsThemeWrapper } from "@/components/kids-theme-wrapper"
+import Navbar from "@/components/navbar"
+import { Footer } from "@/components/footer"
+import { Toaster } from "@/components/ui/toaster"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "StockToons - Make Finance Fun",
-  description: "Learn, Play, and Invest with AI-powered tools for all ages",
+  title: "StockToons - Learn Investing the Fun Way",
+  description:
+    "A colorful and engaging platform to learn about stocks, investing, and financial literacy for all ages.",
     generator: 'v0.dev'
 }
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
           <AuthProvider>
             <DisplayModeProvider>
               <KidsThemeWrapper>
-                <Navbar />
-                <main>{children}</main>
+                <div className="min-h-screen flex flex-col bg-gradient-to-br from-green-50 via-blue-50 to-purple-50">
+                  <Navbar />
+                  <main className="flex-1">{children}</main>
+                  <Footer />
+                </div>
                 <Toaster />
-                <Footer />
               </KidsThemeWrapper>
             </DisplayModeProvider>
           </AuthProvider>

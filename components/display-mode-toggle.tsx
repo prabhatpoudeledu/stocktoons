@@ -17,11 +17,7 @@ export function DisplayModeToggle({ variant = "default" }: DisplayModeToggleProp
         variant="ghost"
         size="sm"
         onClick={toggleDisplayMode}
-        className={`flex items-center gap-2 ${
-          displayMode === "kids"
-            ? "text-green-700 hover:bg-green-100 hover:text-green-800"
-            : "text-muted-foreground hover:text-foreground"
-        }`}
+        className="flex items-center gap-2 text-white hover:bg-white/10 hover:text-white"
       >
         {displayMode === "kids" ? (
           <>
@@ -40,17 +36,15 @@ export function DisplayModeToggle({ variant = "default" }: DisplayModeToggleProp
 
   return (
     <div className="flex items-center space-x-2">
-      <span className={`text-sm font-medium ${displayMode === "kids" ? "text-green-700" : "text-muted-foreground"}`}>
-        Mode:
-      </span>
+      <span className="text-sm font-medium text-white/90">Mode:</span>
       <Button
         variant={displayMode === "kids" ? "default" : "outline"}
         size="sm"
         onClick={toggleDisplayMode}
         className={`flex items-center gap-2 transition-all duration-200 ${
           displayMode === "kids"
-            ? "bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-bold shadow-lg"
-            : "hover:bg-primary hover:text-primary-foreground"
+            ? "bg-white/20 text-white hover:bg-white/30 border border-white/30 font-bold shadow-lg"
+            : "bg-white/10 text-white hover:bg-white/20 border border-white/30"
         }`}
       >
         {displayMode === "kids" ? (
