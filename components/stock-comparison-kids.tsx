@@ -29,7 +29,7 @@ export default function StockComparisonKids() {
           <Button
             variant="outline"
             onClick={handleBack}
-            className="flex items-center gap-2 bg-white border-purple-300 text-purple-700 hover:bg-purple-100 rounded-full shadow-lg transform hover:scale-105 transition-all duration-200"
+            className="flex items-center gap-2 bg-card border-purple-300 text-purple-700 hover:bg-purple-100 rounded-full shadow-lg transform hover:scale-105 transition-all duration-200"
           >
             <ChevronLeft className="h-4 w-4" />
             Back to Companies
@@ -46,7 +46,7 @@ export default function StockComparisonKids() {
               <div>
                 <label className="block text-2xl font-bold text-purple-700 mb-4">🥊 Fighter #1</label>
                 <Select value={stock1} onValueChange={setStock1}>
-                  <SelectTrigger className="border-4 border-purple-200 rounded-2xl h-16 text-lg bg-white shadow-lg">
+                  <SelectTrigger className="border-4 border-purple-200 rounded-2xl h-16 text-lg bg-card shadow-lg">
                     <SelectValue placeholder="Choose your first company" />
                   </SelectTrigger>
                   <SelectContent>
@@ -62,7 +62,7 @@ export default function StockComparisonKids() {
               <div>
                 <label className="block text-2xl font-bold text-purple-700 mb-4">🥊 Fighter #2</label>
                 <Select value={stock2} onValueChange={setStock2}>
-                  <SelectTrigger className="border-4 border-purple-200 rounded-2xl h-16 text-lg bg-white shadow-lg">
+                  <SelectTrigger className="border-4 border-purple-200 rounded-2xl h-16 text-lg bg-card shadow-lg">
                     <SelectValue placeholder="Choose your second company" />
                   </SelectTrigger>
                   <SelectContent>
@@ -82,7 +82,7 @@ export default function StockComparisonKids() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
             <Card className="border-4 border-blue-300 rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-all duration-300">
               <CardHeader className="bg-gradient-to-r from-blue-400 to-cyan-400 text-white p-8 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full -mr-16 -mt-16"></div>
+                <div className="absolute top-0 right-0 w-32 h-32 bg-accent/20 rounded-full -mr-16 -mt-16"></div>
                 <CardTitle className="text-center text-3xl font-bold relative z-10">🥊 {stock1Data?.name}</CardTitle>
                 <p className="text-center text-2xl font-medium text-blue-100 relative z-10">{stock1Data?.symbol}</p>
               </CardHeader>
@@ -127,7 +127,7 @@ export default function StockComparisonKids() {
 
             <Card className="border-4 border-pink-300 rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-all duration-300">
               <CardHeader className="bg-gradient-to-r from-pink-400 to-purple-400 text-white p-8 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full -mr-16 -mt-16"></div>
+                <div className="absolute top-0 right-0 w-32 h-32 bg-accent/20 rounded-full -mr-16 -mt-16"></div>
                 <CardTitle className="text-center text-3xl font-bold relative z-10">🥊 {stock2Data?.name}</CardTitle>
                 <p className="text-center text-2xl font-medium text-pink-100 relative z-10">{stock2Data?.symbol}</p>
               </CardHeader>

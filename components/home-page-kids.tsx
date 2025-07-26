@@ -71,7 +71,7 @@ export function HomePageKids() {
 
         {/* Fun Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <Card className="border-0 shadow-lg bg-white/90 backdrop-blur-sm hover:shadow-xl transition-all duration-300 hover:scale-105">
+          <Card className="card">
             <CardHeader className="bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-t-lg">
               <CardTitle className="flex items-center space-x-2 text-lg">
                 <Coins className="h-6 w-6" />
@@ -84,7 +84,7 @@ export function HomePageKids() {
             </CardContent>
           </Card>
 
-          <Card className="border-0 shadow-lg bg-white/90 backdrop-blur-sm hover:shadow-xl transition-all duration-300 hover:scale-105">
+          <Card className="card">
             <CardHeader className="bg-gradient-to-r from-blue-400 to-purple-500 text-white rounded-t-lg">
               <CardTitle className="flex items-center space-x-2 text-lg">
                 <Target className="h-6 w-6" />
@@ -97,7 +97,7 @@ export function HomePageKids() {
             </CardContent>
           </Card>
 
-          <Card className="border-0 shadow-lg bg-white/90 backdrop-blur-sm hover:shadow-xl transition-all duration-300 hover:scale-105">
+          <Card className="card">
             <CardHeader className="bg-gradient-to-r from-purple-400 to-pink-500 text-white rounded-t-lg">
               <CardTitle className="flex items-center space-x-2 text-lg">
                 <Trophy className="h-6 w-6" />
@@ -112,7 +112,7 @@ export function HomePageKids() {
         </div>
 
         {/* Learning Progress */}
-        <Card className="border-0 shadow-lg bg-white/90 backdrop-blur-sm">
+        <Card className="card">
           <CardHeader className="bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-t-lg">
             <CardTitle className="flex items-center space-x-2">
               <BookOpen className="h-6 w-6" />
@@ -142,7 +142,7 @@ export function HomePageKids() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {funActivities.map((activity) => (
               <Link key={activity.title} href={activity.href}>
-                <Card className="border-0 shadow-lg bg-white/90 backdrop-blur-sm hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer group">
+                <Card className="card cursor-pointer group">
                   <CardContent className="p-6 text-center">
                     <div
                       className={`w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-r ${activity.gradient} flex items-center justify-center group-hover:animate-bounce`}
@@ -159,7 +159,7 @@ export function HomePageKids() {
         </div>
 
         {/* Achievements */}
-        <Card className="border-0 shadow-lg bg-white/90 backdrop-blur-sm">
+        <Card className="card">
           <CardHeader className="bg-gradient-to-r from-teal-400 to-cyan-500 text-white rounded-t-lg">
             <CardTitle className="flex items-center space-x-2">
               <Trophy className="h-6 w-6" />
@@ -189,7 +189,7 @@ export function HomePageKids() {
         </Card>
 
         {/* Daily Challenge */}
-        <Card className="border-0 shadow-lg bg-white/90 backdrop-blur-sm">
+        <Card className="card">
           <CardHeader className="bg-gradient-to-r from-purple-400 to-pink-500 text-white rounded-t-lg">
             <CardTitle className="flex items-center space-x-2">
               <Gift className="h-6 w-6" />
