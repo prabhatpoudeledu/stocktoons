@@ -35,20 +35,20 @@ export default function Navbar() {
   const navItems = isKidsMode ? kidsNavigation : navigation
 
   return (
-    <nav className="sticky top-0 z-50 border-b bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 border-green-300 backdrop-blur-md shadow-lg">
+    <nav className="sticky top-0 z-50 border-b bg-gradient-to-r from-purple-200 via-pink-200 via-blue-200 to-green-200 border-purple-200 backdrop-blur-md shadow-lg">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/20 text-white">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/30 text-purple-700">
                 <TrendingUp className="h-5 w-5" />
               </div>
               <div className="flex flex-col">
-                <span className="text-xl font-bold bg-gradient-to-r from-white to-cyan-200 bg-clip-text text-transparent">
+                <span className="text-xl font-bold bg-gradient-to-r from-purple-700 to-pink-700 bg-clip-text text-transparent">
                   {isKidsMode ? "StockToons Kids" : "StockToons"}
                 </span>
-                {isKidsMode && <span className="text-xs text-white/80 -mt-1">Learn about money in a fun way!</span>}
+                {isKidsMode && <span className="text-xs text-purple-600 -mt-1">Learn about money in a fun way!</span>}
               </div>
             </Link>
           </div>
@@ -64,7 +64,9 @@ export default function Navbar() {
                     key={item.name}
                     href={item.href}
                     className={`flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                      isActive ? "bg-white/20 text-white shadow-lg" : "text-white/90 hover:bg-white/10 hover:text-white"
+                      isActive
+                        ? "bg-white/30 text-purple-800 shadow-lg"
+                        : "text-purple-700 hover:bg-white/20 hover:text-purple-800"
                     }`}
                   >
                     <item.icon className="h-4 w-4" />
@@ -78,11 +80,11 @@ export default function Navbar() {
           {/* Search Bar */}
           <div className="hidden lg:block flex-1 max-w-md mx-8">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/70" />
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-purple-600" />
               <Input
                 type="search"
                 placeholder={isKidsMode ? "Search for stocks! 🔍" : "Search stocks, news..."}
-                className="pl-10 bg-white/20 border-white/30 text-white placeholder:text-white/70 focus:bg-white/30 backdrop-blur-sm"
+                className="pl-10 bg-white/30 border-purple-300 text-purple-800 placeholder:text-purple-600 focus:bg-white/40 backdrop-blur-sm"
               />
             </div>
           </div>
@@ -96,12 +98,12 @@ export default function Navbar() {
             ) : (
               <div className="hidden md:flex items-center space-x-2">
                 <Link href="/login">
-                  <Button variant="ghost" size="sm" className="text-white hover:bg-white/10 hover:text-white">
+                  <Button variant="ghost" size="sm" className="text-purple-700 hover:bg-white/20 hover:text-purple-800">
                     Sign In
                   </Button>
                 </Link>
                 <Link href="/signup">
-                  <Button size="sm" className="bg-white/20 text-white hover:bg-white/30 border border-white/30">
+                  <Button size="sm" className="bg-white/30 text-purple-700 hover:bg-white/40 border border-purple-300">
                     Sign Up
                   </Button>
                 </Link>
@@ -111,23 +113,26 @@ export default function Navbar() {
             {/* Mobile menu button */}
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="sm" className="md:hidden text-white hover:bg-white/10">
+                <Button variant="ghost" size="sm" className="md:hidden text-purple-700 hover:bg-white/20">
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-80 bg-gradient-to-b from-green-400 to-blue-400 border-green-300">
+              <SheetContent
+                side="right"
+                className="w-80 bg-gradient-to-b from-purple-100 to-pink-100 border-purple-200"
+              >
                 <div className="flex flex-col h-full">
                   {/* Mobile Header */}
-                  <div className="flex items-center justify-between pb-6 border-b border-white/20">
+                  <div className="flex items-center justify-between pb-6 border-b border-purple-200">
                     <div className="flex items-center space-x-2">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/20">
-                        <TrendingUp className="h-5 w-5 text-white" />
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/30">
+                        <TrendingUp className="h-5 w-5 text-purple-700" />
                       </div>
                       <div>
-                        <span className="text-lg font-bold text-white">
+                        <span className="text-lg font-bold text-purple-800">
                           {isKidsMode ? "StockToons Kids" : "StockToons"}
                         </span>
-                        {isKidsMode && <p className="text-xs text-white/80">Learn about money in a fun way!</p>}
+                        {isKidsMode && <p className="text-xs text-purple-600">Learn about money in a fun way!</p>}
                       </div>
                     </div>
                   </div>
@@ -135,11 +140,11 @@ export default function Navbar() {
                   {/* Mobile Search */}
                   <div className="py-4">
                     <div className="relative">
-                      <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/70" />
+                      <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-purple-600" />
                       <Input
                         type="search"
                         placeholder={isKidsMode ? "Search for stocks! 🔍" : "Search stocks, news..."}
-                        className="pl-10 bg-white/20 border-white/30 text-white placeholder:text-white/70 focus:bg-white/30"
+                        className="pl-10 bg-white/30 border-purple-300 text-purple-800 placeholder:text-purple-600 focus:bg-white/40"
                       />
                     </div>
                   </div>
@@ -156,8 +161,8 @@ export default function Navbar() {
                           onClick={() => setIsOpen(false)}
                           className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 ${
                             isActive
-                              ? "bg-white/20 text-white shadow-lg"
-                              : "text-white/90 hover:bg-white/10 hover:text-white"
+                              ? "bg-white/30 text-purple-800 shadow-lg"
+                              : "text-purple-700 hover:bg-white/20 hover:text-purple-800"
                           }`}
                         >
                           <item.icon className="h-5 w-5" />
@@ -169,15 +174,15 @@ export default function Navbar() {
 
                   {/* Mobile Auth */}
                   {!user && (
-                    <div className="pt-6 border-t border-white/20 space-y-3">
+                    <div className="pt-6 border-t border-purple-200 space-y-3">
                       <Link href="/login" onClick={() => setIsOpen(false)}>
-                        <Button variant="ghost" className="w-full justify-start text-white hover:bg-white/10">
+                        <Button variant="ghost" className="w-full justify-start text-purple-700 hover:bg-white/20">
                           <User className="h-4 w-4 mr-2" />
                           Sign In
                         </Button>
                       </Link>
                       <Link href="/signup" onClick={() => setIsOpen(false)}>
-                        <Button className="w-full bg-white/20 text-white hover:bg-white/30 border border-white/30">
+                        <Button className="w-full bg-white/30 text-purple-700 hover:bg-white/40 border border-purple-300">
                           Sign Up
                         </Button>
                       </Link>

@@ -68,7 +68,7 @@ export function NewsCard({
       case "negative":
         return "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"
       default:
-        return "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300"
+        return "bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-300"
     }
   }
 
@@ -77,9 +77,9 @@ export function NewsCard({
       case "high":
         return "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"
       case "medium":
-        return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300"
-      default:
         return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+      default:
+        return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
     }
   }
 
@@ -134,7 +134,7 @@ export function NewsCard({
                   <Badge className={`text-xs ${getSentimentColor(article.sentiment)}`}>{article.sentiment}</Badge>
                 )}
                 {article.trending && (
-                  <Badge className="bg-orange-100 text-orange-800 text-xs">
+                  <Badge className="bg-purple-100 text-purple-800 text-xs">
                     <TrendingUp className="h-3 w-3 mr-1" />
                     Trending
                   </Badge>
@@ -208,7 +208,7 @@ export function NewsCard({
           <Badge className="bg-primary text-white">{article.category}</Badge>
           {article.importance === "high" && <Badge className="bg-red-500 text-white">Breaking</Badge>}
           {article.trending && (
-            <Badge className="bg-orange-500 text-white">
+            <Badge className="bg-purple-500 text-white">
               <TrendingUp className="h-3 w-3 mr-1" />
               Trending
             </Badge>

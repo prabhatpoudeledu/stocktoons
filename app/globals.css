@@ -4,60 +4,60 @@
 
 @layer base {
   :root {
-    --background: 240 253 244;
-    --foreground: 22 101 52;
+    --background: 252 252 255;
+    --foreground: 71 85 105;
     --card: 255 255 255;
-    --card-foreground: 22 101 52;
+    --card-foreground: 71 85 105;
     --popover: 255 255 255;
-    --popover-foreground: 22 101 52;
-    --primary: 34 197 94;
+    --popover-foreground: 71 85 105;
+    --primary: 139 92 246;
     --primary-foreground: 255 255 255;
-    --secondary: 220 252 231;
-    --secondary-foreground: 22 101 52;
-    --muted: 240 253 244;
-    --muted-foreground: 74 222 128;
-    --accent: 187 247 208;
-    --accent-foreground: 22 101 52;
+    --secondary: 248 250 252;
+    --secondary-foreground: 71 85 105;
+    --muted: 248 250 252;
+    --muted-foreground: 148 163 184;
+    --accent: 241 245 249;
+    --accent-foreground: 71 85 105;
     --destructive: 248 113 113;
     --destructive-foreground: 255 255 255;
-    --border: 187 247 208;
-    --input: 220 252 231;
-    --ring: 34 197 94;
+    --border: 226 232 240;
+    --input: 248 250 252;
+    --ring: 139 92 246;
     --radius: 0.75rem;
-    --chart-1: 74 222 128;
+    --chart-1: 139 92 246;
     --chart-2: 248 113 113;
-    --chart-3: 96 165 250;
-    --chart-4: 196 181 253;
-    --chart-5: 94 234 212;
+    --chart-3: 59 130 246;
+    --chart-4: 168 85 247;
+    --chart-5: 34 197 94;
     --positive: 34 197 94;
     --negative: 248 113 113;
   }
 
   .dark {
-    --background: 2 20 6;
-    --foreground: 240 253 244;
-    --card: 15 42 23;
-    --card-foreground: 240 253 244;
-    --popover: 15 42 23;
-    --popover-foreground: 240 253 244;
-    --primary: 34 197 94;
+    --background: 15 23 42;
+    --foreground: 248 250 252;
+    --card: 30 41 59;
+    --card-foreground: 248 250 252;
+    --popover: 30 41 59;
+    --popover-foreground: 248 250 252;
+    --primary: 139 92 246;
     --primary-foreground: 255 255 255;
-    --secondary: 20 83 45;
-    --secondary-foreground: 240 253 244;
-    --muted: 20 83 45;
-    --muted-foreground: 74 222 128;
-    --accent: 22 163 74;
-    --accent-foreground: 240 253 244;
+    --secondary: 51 65 85;
+    --secondary-foreground: 248 250 252;
+    --muted: 51 65 85;
+    --muted-foreground: 148 163 184;
+    --accent: 71 85 105;
+    --accent-foreground: 248 250 252;
     --destructive: 248 113 113;
     --destructive-foreground: 255 255 255;
-    --border: 22 163 74;
-    --input: 20 83 45;
-    --ring: 34 197 94;
-    --chart-1: 34 197 94;
+    --border: 71 85 105;
+    --input: 51 65 85;
+    --ring: 139 92 246;
+    --chart-1: 139 92 246;
     --chart-2: 248 113 113;
-    --chart-3: 96 165 250;
-    --chart-4: 196 181 253;
-    --chart-5: 94 234 212;
+    --chart-3: 59 130 246;
+    --chart-4: 168 85 247;
+    --chart-5: 34 197 94;
     --positive: 34 197 94;
     --negative: 248 113 113;
   }
@@ -69,18 +69,18 @@
   }
   body {
     @apply bg-background text-foreground;
-    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #bbf7d0 100%);
+    background: linear-gradient(135deg, #fef7ff 0%, #f0f9ff 25%, #f0fdf4 50%, #fef3f2 75%, #faf5ff 100%);
     min-height: 100vh;
   }
   .dark body {
-    background: linear-gradient(135deg, #022c22 0%, #064e3b 50%, #166534 100%);
+    background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 25%, #064e3b 50%, #7f1d1d 75%, #581c87 100%);
   }
 }
 
 .chart-pattern {
   background-color: hsl(var(--card));
-  background-image: linear-gradient(rgba(34, 197, 94, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(34, 197, 94, 0.05) 1px, transparent 1px);
+  background-image: linear-gradient(rgba(139, 92, 246, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, 0.05) 1px, transparent 1px);
   background-size: 20px 20px;
 }
 
@@ -101,8 +101,8 @@
       to right,
       transparent,
       transparent 2px,
-      rgba(34, 197, 94, 0.3) 2px,
-      rgba(34, 197, 94, 0.3) 4px,
+      rgba(139, 92, 246, 0.3) 2px,
+      rgba(139, 92, 246, 0.3) 4px,
       transparent 4px,
       transparent 10px
     ),
@@ -157,29 +157,29 @@
   }
 }
 
-/* Universal Kids Theme Styles */
+/* Universal Light Theme Styles */
 .card {
-  @apply shadow-lg border-2 border-green-200 rounded-xl bg-white/90 backdrop-blur-sm;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 253, 244, 0.95) 100%);
+  @apply shadow-lg border border-purple-100 rounded-xl bg-white/95 backdrop-blur-sm;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.95) 100%);
 }
 
 .card:hover {
-  @apply border-blue-300 shadow-xl;
+  @apply border-purple-200 shadow-xl;
   transform: translateY(-2px);
   transition: all 0.3s ease;
 }
 
-/* Enhanced button styles */
+/* Enhanced button styles with lighter colors */
 .btn-gradient-primary {
-  @apply bg-gradient-to-r from-green-400 to-blue-400 hover:from-green-500 hover:to-blue-500 text-white font-bold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105;
+  @apply bg-gradient-to-r from-purple-300 to-pink-300 hover:from-purple-400 hover:to-pink-400 text-purple-800 font-bold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105;
 }
 
 .btn-gradient-secondary {
-  @apply bg-gradient-to-r from-purple-400 to-pink-400 hover:from-purple-500 hover:to-pink-500 text-white font-bold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105;
+  @apply bg-gradient-to-r from-blue-300 to-cyan-300 hover:from-blue-400 hover:to-cyan-400 text-blue-800 font-bold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105;
 }
 
 .btn-gradient-tertiary {
-  @apply bg-gradient-to-r from-blue-400 to-cyan-400 hover:from-blue-500 hover:to-cyan-500 text-white font-bold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105;
+  @apply bg-gradient-to-r from-green-300 to-emerald-300 hover:from-green-400 hover:to-emerald-400 text-green-800 font-bold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105;
 }
 
 /* Stock price colors */
@@ -232,41 +232,41 @@
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-green-100 rounded-full;
+  @apply bg-purple-50 rounded-full;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-gradient-to-b from-green-400 to-blue-400 rounded-full;
+  @apply bg-gradient-to-b from-purple-300 to-pink-300 rounded-full;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply from-green-500 to-blue-500;
+  @apply from-purple-400 to-pink-400;
 }
 
-/* Enhanced gradient backgrounds - colorful theme */
+/* Enhanced gradient backgrounds - lighter theme */
 .gradient-bg-primary {
-  background: linear-gradient(135deg, #34d399 0%, #3b82f6 100%);
+  background: linear-gradient(135deg, #e879f9 0%, #a78bfa 100%);
 }
 
 .gradient-bg-secondary {
-  background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+  background: linear-gradient(135deg, #93c5fd 0%, #7dd3fc 100%);
 }
 
 .gradient-bg-tertiary {
-  background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
+  background: linear-gradient(135deg, #86efac 0%, #6ee7b7 100%);
 }
 
 .gradient-bg-success {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  background: linear-gradient(135deg, #86efac 0%, #34d399 100%);
 }
 
 .gradient-bg-info {
-  background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+  background: linear-gradient(135deg, #7dd3fc 0%, #60a5fa 100%);
 }
 
 /* Loading animations */
 .loading-shimmer {
-  background: linear-gradient(90deg, #dcfce7 25%, #bbf7d0 50%, #dcfce7 75%);
+  background: linear-gradient(90deg, #f8fafc 25%, #e2e8f0 50%, #f8fafc 75%);
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
 }
@@ -280,62 +280,68 @@
   }
 }
 
-/* Page headers with colorful gradients */
+/* Page headers with lighter colorful gradients */
 .page-header {
-  @apply bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 text-white rounded-xl shadow-2xl p-8 mb-8;
+  @apply bg-gradient-to-r from-purple-300 via-pink-300 to-blue-300 text-purple-800 rounded-xl shadow-2xl p-8 mb-8;
 }
 
 .page-title {
-  @apply text-4xl font-bold mb-4 text-white;
+  @apply text-4xl font-bold mb-4 text-purple-800;
 }
 
 .page-subtitle {
-  @apply text-xl opacity-90 text-white;
+  @apply text-xl opacity-90 text-purple-700;
 }
 
 /* Section headers */
 .section-header {
-  @apply text-2xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent mb-6;
+  @apply text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent mb-6;
 }
 
-/* Enhanced cards with colorful themes */
+/* Enhanced cards with lighter colorful themes */
 .card-green {
-  @apply bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200;
+  @apply bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200;
 }
 
 .card-blue {
-  @apply bg-gradient-to-br from-blue-50 to-cyan-50 border-2 border-blue-200;
+  @apply bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-200;
 }
 
 .card-purple {
-  @apply bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-200;
+  @apply bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-200;
 }
 
 .card-teal {
-  @apply bg-gradient-to-br from-teal-50 to-cyan-50 border-2 border-teal-200;
+  @apply bg-gradient-to-br from-teal-50 to-cyan-50 border border-teal-200;
 }
 
-/* Ensure all cards use the consistent colorful theme */
-.card, [class*="bg-card"] {
-  @apply shadow-lg border-2 border-green-200 rounded-xl backdrop-blur-sm;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 253, 244, 0.95) 100%) !important;
+/* Ensure all cards use the consistent lighter theme */
+.card,
+[class*="bg-card"] {
+  @apply shadow-lg border border-purple-100 rounded-xl backdrop-blur-sm;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.95) 100%) !important;
 }
 
-.card:hover, [class*="bg-card"]:hover {
-  @apply border-blue-300 shadow-xl;
+.card:hover,
+[class*="bg-card"]:hover {
+  @apply border-purple-200 shadow-xl;
   transform: translateY(-2px);
   transition: all 0.3s ease;
 }
 
-/* Ensure inputs and form elements follow the theme */
-input, select, textarea {
-  @apply border-green-200 focus:border-green-400 focus:ring-green-400;
+/* Ensure inputs and form elements follow the lighter theme */
+input,
+select,
+textarea {
+  @apply border-purple-200 focus:border-purple-400 focus:ring-purple-400;
 }
 
 /* Ensure consistent background for modals and popovers */
-.popover-content, .modal-content, .dropdown-content {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 253, 244, 0.95) 100%) !important;
-  @apply border-2 border-green-200 shadow-xl;
+.popover-content,
+.modal-content,
+.dropdown-content {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.95) 100%) !important;
+  @apply border border-purple-200 shadow-xl;
 }
 
 /* Responsive design improvements */

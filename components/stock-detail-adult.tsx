@@ -133,19 +133,19 @@ export default function StockDetailAdult({ symbol }: StockDetailAdultProps) {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="flex items-center mb-6">
-          <h1 className="text-3xl font-bold flex-1 bg-gradient-to-r from-green-500 to-blue-500 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-bold flex-1 bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
             Stock Not Found
           </h1>
           <Button
             variant="outline"
             onClick={() => router.push("/stocks/categories")}
-            className="flex items-center gap-2 bg-gradient-to-r from-green-400 to-blue-500 text-white border-0 hover:from-green-500 hover:to-blue-600"
+            className="flex items-center gap-2 bg-gradient-to-r from-purple-300 to-pink-300 text-purple-800 border-0 hover:from-purple-400 hover:to-pink-400"
           >
             <ChevronLeft className="h-4 w-4" />
             Back to Categories
           </Button>
         </div>
-        <Card className="bg-gradient-to-br from-green-50 to-blue-50 border-2 border-green-200">
+        <Card className="bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-200">
           <CardContent className="p-6">
             <p className="text-gray-700">The stock with symbol {symbol} could not be found.</p>
           </CardContent>
@@ -184,11 +184,11 @@ export default function StockDetailAdult({ symbol }: StockDetailAdultProps) {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="animate-pulse space-y-8">
-          <div className="h-8 bg-gradient-to-r from-green-200 to-blue-200 rounded w-1/3"></div>
+          <div className="h-8 bg-gradient-to-r from-purple-200 to-pink-200 rounded w-1/3"></div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 h-96 bg-gradient-to-br from-green-100 to-blue-100 rounded"></div>
+            <div className="lg:col-span-2 h-96 bg-gradient-to-br from-blue-100 to-cyan-100 rounded"></div>
             <div className="space-y-4">
-              <div className="h-32 bg-gradient-to-br from-purple-100 to-pink-100 rounded"></div>
+              <div className="h-32 bg-gradient-to-br from-green-100 to-emerald-100 rounded"></div>
               <div className="h-64 bg-gradient-to-br from-teal-100 to-cyan-100 rounded"></div>
             </div>
           </div>
@@ -200,18 +200,18 @@ export default function StockDetailAdult({ symbol }: StockDetailAdultProps) {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex items-center mb-6">
-        <h1 className="text-4xl font-bold flex-1 bg-gradient-to-r from-green-500 to-blue-500 bg-clip-text text-transparent">
+        <h1 className="text-4xl font-bold flex-1 bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
           {currentData.name} ({currentData.symbol})
         </h1>
         <div className="flex items-center gap-4">
           <div className="text-right">
             <p className="text-sm text-gray-500">Last Updated</p>
-            <p className="text-sm font-medium text-green-600">{formatTime(lastUpdate)}</p>
+            <p className="text-sm font-medium text-purple-600">{formatTime(lastUpdate)}</p>
           </div>
           <Button
             variant="outline"
             onClick={() => fetchRealTimeData()}
-            className="flex items-center gap-2 bg-gradient-to-r from-green-400 to-blue-500 text-white border-0 hover:from-green-500 hover:to-blue-600"
+            className="flex items-center gap-2 bg-gradient-to-r from-purple-300 to-pink-300 text-purple-800 border-0 hover:from-purple-400 hover:to-pink-400"
           >
             <Activity className="h-4 w-4" />
             Refresh
@@ -219,7 +219,7 @@ export default function StockDetailAdult({ symbol }: StockDetailAdultProps) {
           <Button
             variant="outline"
             onClick={() => router.push("/stocks/categories")}
-            className="flex items-center gap-2 bg-gradient-to-r from-blue-400 to-purple-500 text-white border-0 hover:from-blue-500 hover:to-purple-600"
+            className="flex items-center gap-2 bg-gradient-to-r from-blue-300 to-cyan-300 text-blue-800 border-0 hover:from-blue-400 hover:to-cyan-400"
           >
             <ChevronLeft className="h-4 w-4" />
             Back to Categories
@@ -228,7 +228,7 @@ export default function StockDetailAdult({ symbol }: StockDetailAdultProps) {
       </div>
 
       {/* Real-time Price Header */}
-      <Card className="mb-6 bg-gradient-to-r from-green-50 to-blue-50 border-2 border-green-200">
+      <Card className="mb-6 bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200">
         <CardContent className="p-6">
           <div className="flex items-center justify-between">
             <div>
@@ -254,8 +254,8 @@ export default function StockDetailAdult({ symbol }: StockDetailAdultProps) {
             </div>
             <div className="text-right">
               <div className="flex items-center gap-2 mb-2">
-                <Activity className="h-4 w-4 text-green-600" />
-                <span className="text-sm font-medium text-green-600">Live Data</span>
+                <Activity className="h-4 w-4 text-purple-600" />
+                <span className="text-sm font-medium text-purple-600">Live Data</span>
               </div>
               <div className="space-y-1 text-sm text-gray-600">
                 <div className="flex items-center gap-2">
@@ -274,10 +274,10 @@ export default function StockDetailAdult({ symbol }: StockDetailAdultProps) {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
-          <Card className="h-full bg-gradient-to-br from-white to-green-50 border-2 border-green-200">
+          <Card className="h-full bg-gradient-to-br from-white to-blue-50 border border-blue-200">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
-                <BarChart3 className="h-5 w-5 text-green-600" />
+              <CardTitle className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                <BarChart3 className="h-5 w-5 text-blue-600" />
                 Price History (30 Days)
               </CardTitle>
             </CardHeader>
@@ -287,7 +287,7 @@ export default function StockDetailAdult({ symbol }: StockDetailAdultProps) {
                   config={{
                     price: {
                       label: "Price",
-                      color: "hsl(142, 76%, 36%)",
+                      color: "hsl(139, 92, 246)",
                     },
                   }}
                 >
@@ -300,16 +300,16 @@ export default function StockDetailAdult({ symbol }: StockDetailAdultProps) {
                           const date = new Date(value)
                           return `${date.getMonth() + 1}/${date.getDate()}`
                         }}
-                        stroke="#059669"
+                        stroke="#8b5cf6"
                       />
-                      <YAxis domain={["auto", "auto"]} stroke="#059669" />
+                      <YAxis domain={["auto", "auto"]} stroke="#8b5cf6" />
                       <ChartTooltip content={<ChartTooltipContent />} />
                       <Line
                         type="monotone"
                         dataKey="price"
-                        stroke="#059669"
+                        stroke="#8b5cf6"
                         strokeWidth={3}
-                        activeDot={{ r: 6, fill: "#059669" }}
+                        activeDot={{ r: 6, fill: "#8b5cf6" }}
                       />
                     </LineChart>
                   </ResponsiveContainer>
@@ -321,7 +321,7 @@ export default function StockDetailAdult({ symbol }: StockDetailAdultProps) {
 
         <div className="space-y-6">
           {/* Company Information */}
-          <Card className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200">
+          <Card className="bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
                 <DollarSign className="h-5 w-5 text-green-600" />
@@ -364,7 +364,7 @@ export default function StockDetailAdult({ symbol }: StockDetailAdultProps) {
           </Card>
 
           {/* Quick Actions */}
-          <Card className="bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-200">
+          <Card className="bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-200">
             <CardHeader>
               <CardTitle className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                 Quick Actions
@@ -373,21 +373,21 @@ export default function StockDetailAdult({ symbol }: StockDetailAdultProps) {
             <CardContent className="space-y-3">
               <Button
                 onClick={() => router.push(`/stocks/compare?stock1=${stock.symbol}`)}
-                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold"
+                className="w-full bg-gradient-to-r from-purple-400 to-pink-400 hover:from-purple-500 hover:to-pink-500 text-white font-semibold"
               >
                 Compare with Another Stock
               </Button>
               <Button
                 variant="outline"
                 onClick={() => router.push(`/watchlist?add=${stock.symbol}`)}
-                className="w-full border-purple-300 text-purple-700 hover:bg-purple-100"
+                className="w-full border-purple-300 text-purple-700 hover:bg-purple-100 bg-transparent"
               >
                 Add to Watchlist
               </Button>
               <Button
                 variant="outline"
                 onClick={() => router.push(`/news?symbol=${stock.symbol}`)}
-                className="w-full border-purple-300 text-purple-700 hover:bg-purple-100"
+                className="w-full border-purple-300 text-purple-700 hover:bg-purple-100 bg-transparent"
               >
                 View Related News
               </Button>

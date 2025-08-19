@@ -171,9 +171,9 @@ export default function LearnPage() {
       case "Beginner":
         return "bg-green-500"
       case "Intermediate":
-        return "bg-yellow-500"
+        return "bg-blue-500"
       case "Advanced":
-        return "bg-red-500"
+        return "bg-purple-500"
       default:
         return "bg-gray-500"
     }
@@ -184,9 +184,9 @@ export default function LearnPage() {
       case "Beginner":
         return "text-green-600"
       case "Intermediate":
-        return "text-yellow-600"
+        return "text-blue-600"
       case "Advanced":
-        return "text-red-600"
+        return "text-purple-600"
       default:
         return "text-gray-600"
     }
@@ -195,32 +195,32 @@ export default function LearnPage() {
   return (
     <div className="container py-8">
       {/* Hero Section */}
-      <div className="w-full rounded-lg bg-card chart-pattern p-8 mb-12">
+      <div className="w-full rounded-lg bg-gradient-to-r from-green-500 via-blue-500 to-purple-500 text-white p-8 mb-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div className="relative z-10">
             <h1 className="text-4xl font-bold mb-4">
               {displayMode === "kids" ? "Learn About Money & Investing!" : "Master Financial Markets"}
             </h1>
-            <p className="text-xl text-muted-foreground mb-6">
+            <p className="text-xl opacity-90 mb-6">
               {displayMode === "kids"
                 ? "Fun and easy lessons to understand how money works and grows!"
                 : "Comprehensive courses from beginner to advanced level investing"}
             </p>
             <div className="flex flex-wrap gap-4 mb-6">
               <div className="flex items-center gap-2">
-                <Users className="h-5 w-5 text-primary" />
+                <Users className="h-5 w-5" />
                 <span className="text-sm">50,000+ Students</span>
               </div>
               <div className="flex items-center gap-2">
-                <Star className="h-5 w-5 text-yellow-500" />
+                <Star className="h-5 w-5 text-cyan-300" />
                 <span className="text-sm">4.7 Average Rating</span>
               </div>
               <div className="flex items-center gap-2">
-                <Trophy className="h-5 w-5 text-primary" />
+                <Trophy className="h-5 w-5" />
                 <span className="text-sm">Certificate Included</span>
               </div>
             </div>
-            <Button size="lg" className="bg-primary hover:bg-primary/90">
+            <Button size="lg" className="bg-white text-green-600 hover:bg-gray-100">
               {displayMode === "kids" ? "Start Learning!" : "Start Learning Today"}
             </Button>
           </div>
@@ -247,11 +247,19 @@ export default function LearnPage() {
 
         <TabsContent value="courses" className="space-y-6">
           <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-bold">Featured Courses</h2>
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+              Featured Courses
+            </h2>
             <div className="flex gap-2">
-              <Badge variant="outline">All Levels</Badge>
-              <Badge variant="outline">Self-Paced</Badge>
-              <Badge variant="outline">Certificate</Badge>
+              <Badge variant="outline" className="border-green-300 text-green-600">
+                All Levels
+              </Badge>
+              <Badge variant="outline" className="border-blue-300 text-blue-600">
+                Self-Paced
+              </Badge>
+              <Badge variant="outline" className="border-purple-300 text-purple-600">
+                Certificate
+              </Badge>
             </div>
           </div>
 
@@ -259,16 +267,16 @@ export default function LearnPage() {
             {courses.map((course) => (
               <Card
                 key={course.id}
-                className={`bg-card border border-border hover:border-primary/50 transition-colors cursor-pointer ${course.isLocked ? "opacity-60" : ""}`}
+                className={`bg-gradient-to-br from-white to-green-50 border-2 border-green-200 hover:border-blue-300 transition-colors cursor-pointer ${course.isLocked ? "opacity-60" : ""}`}
                 onClick={() => !course.isLocked && setSelectedCourse(course)}
               >
                 <CardHeader className="pb-4">
                   <div className="flex justify-between items-start mb-2">
                     <Badge className={getDifficultyColor(course.difficulty)}>{course.difficulty}</Badge>
-                    {course.isLocked && <Lock className="h-4 w-4 text-muted-foreground" />}
+                    {course.isLocked && <Lock className="h-4 w-4 text-gray-400" />}
                   </div>
                   <CardTitle className="text-lg">{course.title}</CardTitle>
-                  <p className="text-sm text-muted-foreground">{course.description}</p>
+                  <p className="text-sm text-gray-600">{course.description}</p>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex items-center justify-between text-sm">
@@ -294,16 +302,25 @@ export default function LearnPage() {
 
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-1">
-                      <Star className="h-4 w-4 text-yellow-500" />
+                      <Star className="h-4 w-4 text-cyan-500" />
                       <span className="text-sm">{course.rating}</span>
-                      <span className="text-xs text-muted-foreground">({course.enrolled.toLocaleString()})</span>
+                      <span className="text-xs text-gray-500">({course.enrolled.toLocaleString()})</span>
                     </div>
-                    <Button size="sm" variant={course.progress > 0 ? "default" : "outline"} disabled={course.isLocked}>
+                    <Button
+                      size="sm"
+                      variant={course.progress > 0 ? "default" : "outline"}
+                      disabled={course.isLocked}
+                      className={
+                        course.progress > 0
+                          ? "bg-gradient-to-r from-green-500 to-blue-500 text-white"
+                          : "border-green-300 text-green-600 hover:bg-green-50"
+                      }
+                    >
                       {course.isLocked ? "Locked" : course.progress > 0 ? "Continue" : "Start"}
                     </Button>
                   </div>
 
-                  <div className="text-xs text-muted-foreground">Instructor: {course.instructor}</div>
+                  <div className="text-xs text-gray-500">Instructor: {course.instructor}</div>
                 </CardContent>
               </Card>
             ))}
@@ -312,20 +329,25 @@ export default function LearnPage() {
 
         <TabsContent value="paths" className="space-y-6">
           <div>
-            <h2 className="text-2xl font-bold mb-2">Learning Paths</h2>
-            <p className="text-muted-foreground">Structured learning journeys to achieve your investment goals</p>
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent mb-2">
+              Learning Paths
+            </h2>
+            <p className="text-gray-600">Structured learning journeys to achieve your investment goals</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {learningPaths.map((path) => (
-              <Card key={path.id} className="bg-card border border-border hover:border-primary/50 transition-colors">
+              <Card
+                key={path.id}
+                className="bg-gradient-to-br from-white to-blue-50 border-2 border-blue-200 hover:border-purple-300 transition-colors"
+              >
                 <CardHeader>
                   <div className="flex justify-between items-start mb-2">
                     <Badge className={getDifficultyColor(path.difficulty)}>{path.difficulty}</Badge>
-                    <Target className="h-5 w-5 text-primary" />
+                    <Target className="h-5 w-5 text-blue-500" />
                   </div>
                   <CardTitle className="text-lg">{path.title}</CardTitle>
-                  <p className="text-sm text-muted-foreground">{path.description}</p>
+                  <p className="text-sm text-gray-600">{path.description}</p>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex items-center justify-between text-sm">
@@ -352,7 +374,9 @@ export default function LearnPage() {
                     })}
                   </div>
 
-                  <Button className="w-full">Start Learning Path</Button>
+                  <Button className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white">
+                    Start Learning Path
+                  </Button>
                 </CardContent>
               </Card>
             ))}
@@ -361,104 +385,120 @@ export default function LearnPage() {
 
         <TabsContent value="interactive" className="space-y-6">
           <div>
-            <h2 className="text-2xl font-bold mb-2">Interactive Learning</h2>
-            <p className="text-muted-foreground">Hands-on tools and simulations to practice your skills</p>
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent mb-2">
+              Interactive Learning
+            </h2>
+            <p className="text-gray-600">Hands-on tools and simulations to practice your skills</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Card className="bg-card border border-border hover:border-primary/50 transition-colors">
+            <Card className="bg-gradient-to-br from-blue-50 to-cyan-50 border-2 border-blue-200 hover:border-cyan-300 transition-colors">
               <CardContent className="p-6 flex flex-col items-center text-center">
                 <div className="mb-4 mt-4">
-                  <div className="w-24 h-24 bg-blue-900/30 rounded-full flex items-center justify-center">
-                    <Calculator className="h-12 w-12 text-blue-400" />
+                  <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center">
+                    <Calculator className="h-12 w-12 text-white" />
                   </div>
                 </div>
                 <h3 className="text-xl font-bold mb-2">Investment Calculator</h3>
-                <p className="text-sm text-muted-foreground mb-4">
+                <p className="text-sm text-gray-600 mb-4">
                   Calculate compound interest, returns, and plan your investments
                 </p>
-                <Button variant="outline" className="mt-auto bg-transparent">
+                <Button
+                  variant="outline"
+                  className="mt-auto bg-transparent border-blue-300 text-blue-600 hover:bg-blue-50"
+                >
                   Open Calculator
                 </Button>
               </CardContent>
             </Card>
 
-            <Card className="bg-card border border-border hover:border-primary/50 transition-colors">
+            <Card className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 hover:border-emerald-300 transition-colors">
               <CardContent className="p-6 flex flex-col items-center text-center">
                 <div className="mb-4 mt-4">
-                  <div className="w-24 h-24 bg-green-900/30 rounded-full flex items-center justify-center">
-                    <TrendingUp className="h-12 w-12 text-green-400" />
+                  <div className="w-24 h-24 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center">
+                    <TrendingUp className="h-12 w-12 text-white" />
                   </div>
                 </div>
                 <h3 className="text-xl font-bold mb-2">Stock Simulator</h3>
-                <p className="text-sm text-muted-foreground mb-4">
+                <p className="text-sm text-gray-600 mb-4">
                   Practice trading with virtual money in real market conditions
                 </p>
-                <Button variant="outline" className="mt-auto bg-transparent">
+                <Button
+                  variant="outline"
+                  className="mt-auto bg-transparent border-green-300 text-green-600 hover:bg-green-50"
+                >
                   Start Simulation
                 </Button>
               </CardContent>
             </Card>
 
-            <Card className="bg-card border border-border hover:border-primary/50 transition-colors">
+            <Card className="bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-200 hover:border-pink-300 transition-colors">
               <CardContent className="p-6 flex flex-col items-center text-center">
                 <div className="mb-4 mt-4">
-                  <div className="w-24 h-24 bg-purple-900/30 rounded-full flex items-center justify-center">
-                    <PieChart className="h-12 w-12 text-purple-400" />
+                  <div className="w-24 h-24 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                    <PieChart className="h-12 w-12 text-white" />
                   </div>
                 </div>
                 <h3 className="text-xl font-bold mb-2">Portfolio Builder</h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Build and analyze diversified investment portfolios
-                </p>
-                <Button variant="outline" className="mt-auto bg-transparent">
+                <p className="text-sm text-gray-600 mb-4">Build and analyze diversified investment portfolios</p>
+                <Button
+                  variant="outline"
+                  className="mt-auto bg-transparent border-purple-300 text-purple-600 hover:bg-purple-50"
+                >
                   Build Portfolio
                 </Button>
               </CardContent>
             </Card>
 
-            <Card className="bg-card border border-border hover:border-primary/50 transition-colors">
+            <Card className="bg-gradient-to-br from-red-50 to-pink-50 border-2 border-red-200 hover:border-pink-300 transition-colors">
               <CardContent className="p-6 flex flex-col items-center text-center">
                 <div className="mb-4 mt-4">
-                  <div className="w-24 h-24 bg-red-900/30 rounded-full flex items-center justify-center">
-                    <Shield className="h-12 w-12 text-red-400" />
+                  <div className="w-24 h-24 bg-gradient-to-br from-red-500 to-pink-500 rounded-full flex items-center justify-center">
+                    <Shield className="h-12 w-12 text-white" />
                   </div>
                 </div>
                 <h3 className="text-xl font-bold mb-2">Risk Assessment</h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Evaluate your risk tolerance and investment profile
-                </p>
-                <Button variant="outline" className="mt-auto bg-transparent">
+                <p className="text-sm text-gray-600 mb-4">Evaluate your risk tolerance and investment profile</p>
+                <Button
+                  variant="outline"
+                  className="mt-auto bg-transparent border-red-300 text-red-600 hover:bg-red-50"
+                >
                   Take Assessment
                 </Button>
               </CardContent>
             </Card>
 
-            <Card className="bg-card border border-border hover:border-primary/50 transition-colors">
+            <Card className="bg-gradient-to-br from-teal-50 to-cyan-50 border-2 border-teal-200 hover:border-cyan-300 transition-colors">
               <CardContent className="p-6 flex flex-col items-center text-center">
                 <div className="mb-4 mt-4">
-                  <div className="w-24 h-24 bg-yellow-900/30 rounded-full flex items-center justify-center">
-                    <Lightbulb className="h-12 w-12 text-yellow-400" />
+                  <div className="w-24 h-24 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-full flex items-center justify-center">
+                    <Lightbulb className="h-12 w-12 text-white" />
                   </div>
                 </div>
                 <h3 className="text-xl font-bold mb-2">Market Quiz</h3>
-                <p className="text-sm text-muted-foreground mb-4">Test your knowledge with interactive quizzes</p>
-                <Button variant="outline" className="mt-auto bg-transparent">
+                <p className="text-sm text-gray-600 mb-4">Test your knowledge with interactive quizzes</p>
+                <Button
+                  variant="outline"
+                  className="mt-auto bg-transparent border-teal-300 text-teal-600 hover:bg-teal-50"
+                >
                   Start Quiz
                 </Button>
               </CardContent>
             </Card>
 
-            <Card className="bg-card border border-border hover:border-primary/50 transition-colors">
+            <Card className="bg-gradient-to-br from-indigo-50 to-blue-50 border-2 border-indigo-200 hover:border-blue-300 transition-colors">
               <CardContent className="p-6 flex flex-col items-center text-center">
                 <div className="mb-4 mt-4">
-                  <div className="w-24 h-24 bg-indigo-900/30 rounded-full flex items-center justify-center">
-                    <Award className="h-12 w-12 text-indigo-400" />
+                  <div className="w-24 h-24 bg-gradient-to-br from-indigo-500 to-blue-500 rounded-full flex items-center justify-center">
+                    <Award className="h-12 w-12 text-white" />
                   </div>
                 </div>
                 <h3 className="text-xl font-bold mb-2">Achievement Center</h3>
-                <p className="text-sm text-muted-foreground mb-4">Track your progress and earn learning badges</p>
-                <Button variant="outline" className="mt-auto bg-transparent">
+                <p className="text-sm text-gray-600 mb-4">Track your progress and earn learning badges</p>
+                <Button
+                  variant="outline"
+                  className="mt-auto bg-transparent border-indigo-300 text-indigo-600 hover:bg-indigo-50"
+                >
                   View Achievements
                 </Button>
               </CardContent>
@@ -468,87 +508,89 @@ export default function LearnPage() {
 
         <TabsContent value="resources" className="space-y-6">
           <div>
-            <h2 className="text-2xl font-bold mb-2">Learning Resources</h2>
-            <p className="text-muted-foreground">Additional materials to supplement your learning journey</p>
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent mb-2">
+              Learning Resources
+            </h2>
+            <p className="text-gray-600">Additional materials to supplement your learning journey</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card className="bg-card border border-border">
+            <Card className="bg-gradient-to-br from-green-50 to-blue-50 border-2 border-green-200">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <FileText className="h-5 w-5" />
+                <CardTitle className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+                  <FileText className="h-5 w-5 text-green-500" />
                   Study Guides & Cheat Sheets
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                <div className="flex items-center justify-between p-3 bg-secondary/50 rounded-lg">
+                <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
                   <span className="text-sm">Financial Ratios Quick Reference</span>
-                  <Button size="sm" variant="ghost">
+                  <Button size="sm" variant="ghost" className="text-green-600 hover:bg-green-100">
                     Download
                   </Button>
                 </div>
-                <div className="flex items-center justify-between p-3 bg-secondary/50 rounded-lg">
+                <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
                   <span className="text-sm">Technical Analysis Patterns</span>
-                  <Button size="sm" variant="ghost">
+                  <Button size="sm" variant="ghost" className="text-blue-600 hover:bg-blue-100">
                     Download
                   </Button>
                 </div>
-                <div className="flex items-center justify-between p-3 bg-secondary/50 rounded-lg">
+                <div className="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
                   <span className="text-sm">Investment Terms Glossary</span>
-                  <Button size="sm" variant="ghost">
+                  <Button size="sm" variant="ghost" className="text-purple-600 hover:bg-purple-100">
                     Download
                   </Button>
                 </div>
-                <div className="flex items-center justify-between p-3 bg-secondary/50 rounded-lg">
+                <div className="flex items-center justify-between p-3 bg-teal-50 rounded-lg">
                   <span className="text-sm">Portfolio Allocation Guide</span>
-                  <Button size="sm" variant="ghost">
+                  <Button size="sm" variant="ghost" className="text-teal-600 hover:bg-teal-100">
                     Download
                   </Button>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-card border border-border">
+            <Card className="bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-200">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <PlayCircle className="h-5 w-5" />
+                <CardTitle className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                  <PlayCircle className="h-5 w-5 text-purple-500" />
                   Video Library
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                <div className="flex items-center justify-between p-3 bg-secondary/50 rounded-lg">
+                <div className="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
                   <div>
                     <span className="text-sm font-medium">Market Basics Explained</span>
-                    <p className="text-xs text-muted-foreground">15 min • Beginner</p>
+                    <p className="text-xs text-gray-500">15 min • Beginner</p>
                   </div>
-                  <Button size="sm" variant="ghost">
+                  <Button size="sm" variant="ghost" className="text-purple-600 hover:bg-purple-100">
                     <Play className="h-4 w-4" />
                   </Button>
                 </div>
-                <div className="flex items-center justify-between p-3 bg-secondary/50 rounded-lg">
+                <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
                   <div>
                     <span className="text-sm font-medium">Reading Financial Statements</span>
-                    <p className="text-xs text-muted-foreground">22 min • Intermediate</p>
+                    <p className="text-xs text-gray-500">22 min • Intermediate</p>
                   </div>
-                  <Button size="sm" variant="ghost">
+                  <Button size="sm" variant="ghost" className="text-blue-600 hover:bg-blue-100">
                     <Play className="h-4 w-4" />
                   </Button>
                 </div>
-                <div className="flex items-center justify-between p-3 bg-secondary/50 rounded-lg">
+                <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
                   <div>
                     <span className="text-sm font-medium">Options Strategies Deep Dive</span>
-                    <p className="text-xs text-muted-foreground">35 min • Advanced</p>
+                    <p className="text-xs text-gray-500">35 min • Advanced</p>
                   </div>
-                  <Button size="sm" variant="ghost">
+                  <Button size="sm" variant="ghost" className="text-green-600 hover:bg-green-100">
                     <Play className="h-4 w-4" />
                   </Button>
                 </div>
-                <div className="flex items-center justify-between p-3 bg-secondary/50 rounded-lg">
+                <div className="flex items-center justify-between p-3 bg-teal-50 rounded-lg">
                   <div>
                     <span className="text-sm font-medium">Crypto Investment Guide</span>
-                    <p className="text-xs text-muted-foreground">28 min • Intermediate</p>
+                    <p className="text-xs text-gray-500">28 min • Intermediate</p>
                   </div>
-                  <Button size="sm" variant="ghost">
+                  <Button size="sm" variant="ghost" className="text-teal-600 hover:bg-teal-100">
                     <Play className="h-4 w-4" />
                   </Button>
                 </div>
@@ -557,10 +599,10 @@ export default function LearnPage() {
           </div>
 
           {/* Featured Video Section */}
-          <Card className="bg-card">
+          <Card className="bg-gradient-to-r from-teal-50 to-cyan-50 border-2 border-teal-200">
             <CardContent className="p-0">
               <div className="relative">
-                <div className="aspect-video bg-secondary/50 flex items-center justify-center">
+                <div className="aspect-video bg-gradient-to-r from-teal-100 to-cyan-100 flex items-center justify-center">
                   <Image
                     src="/placeholder.svg?height=400&width=700&text=Featured+Video+Thumbnail"
                     alt="Featured video thumbnail"
@@ -570,19 +612,22 @@ export default function LearnPage() {
                   />
                 </div>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <Button size="icon" className="rounded-full bg-primary hover:bg-primary/90 w-16 h-16">
+                  <Button
+                    size="icon"
+                    className="rounded-full bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 w-16 h-16"
+                  >
                     <Play className="h-8 w-8" />
                   </Button>
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
-                  <h3 className="text-2xl font-bold mb-2">Building Your First Investment Portfolio</h3>
+                  <h3 className="text-2xl font-bold mb-2 text-white">Building Your First Investment Portfolio</h3>
                   <p className="text-sm text-gray-300 mb-4">
                     Learn how to create a diversified portfolio that matches your risk tolerance and investment goals.
                   </p>
                   <div className="flex items-center gap-4">
-                    <Badge>Featured</Badge>
-                    <span className="text-sm">45 minutes</span>
-                    <span className="text-sm">Intermediate</span>
+                    <Badge className="bg-gradient-to-r from-teal-500 to-cyan-500 text-white border-0">Featured</Badge>
+                    <span className="text-sm text-white">45 minutes</span>
+                    <span className="text-sm text-white">Intermediate</span>
                   </div>
                 </div>
               </div>
@@ -594,7 +639,7 @@ export default function LearnPage() {
       {/* Course Detail Modal/Overlay */}
       {selectedCourse && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <Card className="w-full max-w-2xl max-h-[80vh] overflow-y-auto">
+          <Card className="w-full max-w-2xl max-h-[80vh] overflow-y-auto bg-gradient-to-br from-white to-green-50 border-2 border-green-200">
             <CardHeader>
               <div className="flex justify-between items-start">
                 <div>
@@ -602,7 +647,7 @@ export default function LearnPage() {
                     {selectedCourse.difficulty}
                   </Badge>
                   <CardTitle className="text-2xl">{selectedCourse.title}</CardTitle>
-                  <p className="text-muted-foreground mt-2">{selectedCourse.description}</p>
+                  <p className="text-gray-600 mt-2">{selectedCourse.description}</p>
                 </div>
                 <Button variant="ghost" size="sm" onClick={() => setSelectedCourse(null)}>
                   ×
@@ -624,7 +669,7 @@ export default function LearnPage() {
                   <span className="text-sm">{selectedCourse.enrolled.toLocaleString()} enrolled</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Star className="h-4 w-4 text-yellow-500" />
+                  <Star className="h-4 w-4 text-cyan-500" />
                   <span className="text-sm">{selectedCourse.rating} rating</span>
                 </div>
               </div>
@@ -643,7 +688,7 @@ export default function LearnPage() {
 
               <div>
                 <h4 className="font-medium mb-2">Instructor</h4>
-                <p className="text-sm text-muted-foreground">{selectedCourse.instructor}</p>
+                <p className="text-sm text-gray-600">{selectedCourse.instructor}</p>
               </div>
 
               {selectedCourse.progress > 0 && (
@@ -657,8 +702,12 @@ export default function LearnPage() {
               )}
 
               <div className="flex gap-3">
-                <Button className="flex-1">{selectedCourse.progress > 0 ? "Continue Learning" : "Start Course"}</Button>
-                <Button variant="outline">Add to Watchlist</Button>
+                <Button className="flex-1 bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white">
+                  {selectedCourse.progress > 0 ? "Continue Learning" : "Start Course"}
+                </Button>
+                <Button variant="outline" className="border-green-300 text-green-600 hover:bg-green-50 bg-transparent">
+                  Add to Watchlist
+                </Button>
               </div>
             </CardContent>
           </Card>

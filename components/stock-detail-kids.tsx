@@ -75,7 +75,7 @@ export default function StockDetailKids({ symbol }: StockDetailKidsProps) {
             </div>
             <Button
               variant="outline"
-              className="text-lg font-bold border-2 border-purple-300 hover:bg-purple-100"
+              className="text-lg font-bold border-2 border-purple-300 hover:bg-purple-100 bg-transparent"
               onClick={() => router.push("/kids/stocks/categories")}
             >
               <ArrowLeft className="mr-2 h-5 w-5" /> Back to Categories
@@ -141,9 +141,9 @@ export default function StockDetailKids({ symbol }: StockDetailKidsProps) {
                   <p className="text-lg">{category?.name}</p>
                 </div>
 
-                <div className="bg-yellow-100 p-4 rounded-lg border border-yellow-300">
-                  <h3 className="font-bold text-yellow-800">Did You Know?</h3>
-                  <p className="text-yellow-800">
+                <div className="bg-blue-100 p-4 rounded-lg border border-blue-300">
+                  <h3 className="font-bold text-blue-800">Did You Know?</h3>
+                  <p className="text-blue-800">
                     When a stock price goes {stock.change >= 0 ? "up" : "down"}, it means the company is worth{" "}
                     {stock.change >= 0 ? "more" : "less"} money than before!
                   </p>

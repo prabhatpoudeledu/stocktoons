@@ -3,198 +3,100 @@ import { NextResponse } from "next/server"
 export async function GET(request: Request, { params }: { params: { symbol: string } }) {
   try {
     const symbol = params.symbol.toUpperCase()
-    const apiKey = process.env.NEXT_PUBLIC_ALPHA_VANTAGE_KEY
 
-    if (!apiKey) {
-      throw new Error("API key not available")
+    // Mock stock quote data with realistic values
+    const mockStockData = {
+      AAPL: {
+        symbol: "AAPL",
+        name: "Apple Inc.",
+        price: 175.43,
+        change: 3.68,
+        changePercent: 2.1,
+        volume: "52.3M",
+        marketCap: "$2.8T",
+        high: 178.21,
+        low: 172.15,
+        open: 174.5,
+        previousClose: 171.75,
+      },
+      MSFT: {
+        symbol: "MSFT",
+        name: "Microsoft Corp.",
+        price: 338.11,
+        change: 5.98,
+        changePercent: 1.8,
+        volume: "28.7M",
+        marketCap: "$2.5T",
+        high: 342.15,
+        low: 335.2,
+        open: 336.8,
+        previousClose: 332.13,
+      },
+      GOOGL: {
+        symbol: "GOOGL",
+        name: "Alphabet Inc.",
+        price: 127.89,
+        change: -0.64,
+        changePercent: -0.5,
+        volume: "31.2M",
+        marketCap: "$1.6T",
+        high: 129.45,
+        low: 126.8,
+        open: 128.5,
+        previousClose: 128.53,
+      },
     }
 
-    // Fetch real-time quote
-    const response = await fetch(
-      `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${apiKey}`,
-    )
-    const data = await response.json()
+    // Get stock data or create random data for unknown symbols
+    let stockData = mockStockData[symbol as keyof typeof mockStockData]
 
-    if (data["Global Quote"]) {
-      const quote = data["Global Quote"]
-      const price = Number.parseFloat(quote["05. price"]) || 0
-      const change = Number.parseFloat(quote["09. change"]) || 0
-      const changePercent = Number.parseFloat(quote["10. change percent"].replace("%", "")) || 0
-      const volume = Number.parseInt(quote["06. volume"]) || 0
-      const open = Number.parseFloat(quote["02. open"]) || 0
-      const high = Number.parseFloat(quote["03. high"]) || 0
-      const low = Number.parseFloat(quote["04. low"]) || 0
-      const previousClose = Number.parseFloat(quote["08. previous close"]) || 0
+    if (!stockData) {
+      // Generate random data for unknown symbols
+      const basePrice = 100 + Math.random() * 200
+      const changePercent = (Math.random() - 0.5) * 6
+      const change = (basePrice * changePercent) / 100
 
-      const stockData = {
-        symbol: symbol,
-        name: getCompanyName(symbol),
-        price: price,
-        change: change,
-        changePercent: changePercent,
-        positive: change >= 0,
-        volume: formatVolume(volume),
-        marketCap: getMarketCap(symbol),
-        open: open,
-        high: high,
-        low: low,
-        previousClose: previousClose,
-        dayRange: `${low.toFixed(2)} - ${high.toFixed(2)}`,
-        lastUpdated: new Date().toISOString(),
+      stockData = {
+        symbol,
+        name: `${symbol} Inc.`,
+        price: Number((basePrice + change).toFixed(2)),
+        change: Number(change.toFixed(2)),
+        changePercent: Number(changePercent.toFixed(2)),
+        volume: `${Math.floor(Math.random() * 100) + 10}M`,
+        marketCap: `$${Math.floor(Math.random() * 500) + 100}B`,
+        high: Number((basePrice + change + Math.random() * 10).toFixed(2)),
+        low: Number((basePrice + change - Math.random() * 10).toFixed(2)),
+        open: Number((basePrice + change + (Math.random() - 0.5) * 5).toFixed(2)),
+        previousClose: Number(basePrice.toFixed(2)),
       }
-
-      return NextResponse.json({ stock: stockData })
     }
 
-    // Mock real-time stock data with safe numeric values
-    const basePrice = 100 + Math.random() * 400 // Random base price between 100-500
-    const changePercent = (Math.random() - 0.5) * 6 // Random change between -3% to +3%
-    const change = (basePrice * changePercent) / 100
-    const newPrice = Math.max(basePrice + change, 1) // Ensure price is never negative
-
-    const stockData = {
-      symbol: symbol,
-      name: getCompanyName(symbol),
-      price: Number.parseFloat(newPrice.toFixed(2)),
-      change: Number.parseFloat(change.toFixed(2)),
-      changePercent: Number.parseFloat(changePercent.toFixed(2)),
-      positive: change >= 0,
-      volume: formatVolume(Math.floor(Math.random() * 100000000 + 10000000)),
-      marketCap: "$" + Math.floor(Math.random() * 500 + 100) + "B",
-      high: Number.parseFloat((newPrice + Math.random() * 10).toFixed(2)),
-      low: Number.parseFloat((newPrice - Math.random() * 10).toFixed(2)),
-      open: Number.parseFloat((newPrice + (Math.random() - 0.5) * 5).toFixed(2)),
-      previousClose: Number.parseFloat((newPrice - change).toFixed(2)),
-      lastUpdated: new Date().toISOString(),
-    }
-
-    return NextResponse.json({ stock: stockData })
+    return NextResponse.json({
+      stock: stockData,
+      timestamp: new Date().toISOString(),
+      success: true,
+    })
   } catch (error) {
-    console.error(`Error fetching quote for ${params.symbol}:`, error)
+    console.error("Error in stock quote API:", error)
 
-    // Return safe mock data for the requested symbol
-    const mockData = getMockStockData(params.symbol.toUpperCase())
-    return NextResponse.json({ stock: mockData })
+    // Return fallback data even on error
+    return NextResponse.json({
+      stock: {
+        symbol: params.symbol.toUpperCase(),
+        name: `${params.symbol.toUpperCase()} Inc.`,
+        price: 100.0,
+        change: 0.0,
+        changePercent: 0.0,
+        volume: "N/A",
+        marketCap: "N/A",
+        high: 100.0,
+        low: 100.0,
+        open: 100.0,
+        previousClose: 100.0,
+      },
+      timestamp: new Date().toISOString(),
+      success: false,
+      error: "Using fallback data",
+    })
   }
-}
-
-function getMockStockData(symbol: string) {
-  const mockStocks: { [key: string]: any } = {
-    AAPL: {
-      symbol: "AAPL",
-      name: "Apple Inc.",
-      price: 175.43,
-      change: 3.68,
-      changePercent: 2.14,
-      positive: true,
-      volume: "52.3M",
-      marketCap: "$2.8T",
-      open: 172.15,
-      high: 176.89,
-      low: 171.23,
-      previousClose: 171.75,
-      dayRange: "171.23 - 176.89",
-      lastUpdated: new Date().toISOString(),
-    },
-    MSFT: {
-      symbol: "MSFT",
-      name: "Microsoft Corp.",
-      price: 338.11,
-      change: 5.98,
-      changePercent: 1.8,
-      positive: true,
-      volume: "28.7M",
-      marketCap: "$2.5T",
-      open: 334.5,
-      high: 340.25,
-      low: 333.12,
-      previousClose: 332.13,
-      dayRange: "333.12 - 340.25",
-      lastUpdated: new Date().toISOString(),
-    },
-    UNH: {
-      symbol: "UNH",
-      name: "UnitedHealth Group Inc.",
-      price: 542.87,
-      change: 8.45,
-      changePercent: 1.58,
-      positive: true,
-      volume: "3.2M",
-      marketCap: "$512B",
-      open: 538.2,
-      high: 545.6,
-      low: 537.15,
-      previousClose: 534.42,
-      dayRange: "537.15 - 545.60",
-      lastUpdated: new Date().toISOString(),
-    },
-  }
-
-  return (
-    mockStocks[symbol] || {
-      symbol: symbol,
-      name: `${symbol} Corp.`,
-      price: 100.0,
-      change: 1.5,
-      changePercent: 1.52,
-      positive: true,
-      volume: "1.2M",
-      marketCap: "$50B",
-      open: 99.25,
-      high: 101.75,
-      low: 98.5,
-      previousClose: 98.5,
-      dayRange: "98.50 - 101.75",
-      lastUpdated: new Date().toISOString(),
-    }
-  )
-}
-
-function getCompanyName(symbol: string): string {
-  const names: { [key: string]: string } = {
-    AAPL: "Apple Inc.",
-    MSFT: "Microsoft Corp.",
-    GOOGL: "Alphabet Inc.",
-    TSLA: "Tesla Inc.",
-    AMZN: "Amazon.com Inc.",
-    NVDA: "NVIDIA Corp.",
-    META: "Meta Platforms Inc.",
-    NFLX: "Netflix Inc.",
-    UNH: "UnitedHealth Group Inc.",
-    JNJ: "Johnson & Johnson",
-    V: "Visa Inc.",
-    WMT: "Walmart Inc.",
-  }
-  return names[symbol] || `${symbol} Corp.`
-}
-
-function getMarketCap(symbol: string): string {
-  const marketCaps: { [key: string]: string } = {
-    AAPL: "$2.8T",
-    MSFT: "$2.5T",
-    GOOGL: "$1.6T",
-    TSLA: "$789B",
-    AMZN: "$1.5T",
-    NVDA: "$1.1T",
-    META: "$756B",
-    NFLX: "$189B",
-    UNH: "$512B",
-    JNJ: "$445B",
-    V: "$489B",
-    WMT: "$567B",
-  }
-  return marketCaps[symbol] || "N/A"
-}
-
-function formatVolume(volume: number): string {
-  if (isNaN(volume) || volume === 0) {
-    return "N/A"
-  }
-
-  if (volume >= 1000000) {
-    return `${(volume / 1000000).toFixed(1)}M`
-  } else if (volume >= 1000) {
-    return `${(volume / 1000).toFixed(1)}K`
-  }
-  return volume.toString()
 }

@@ -173,8 +173,8 @@ export default function StockComparisonKids() {
         )}
 
         {stock1 && stock2 && (
-          <Card className="border-4 border-yellow-300 rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-yellow-50 to-orange-50">
-            <CardHeader className="bg-gradient-to-r from-yellow-400 to-orange-400 text-white p-8">
+          <Card className="border-4 border-teal-300 rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-teal-50 to-cyan-50">
+            <CardHeader className="bg-gradient-to-r from-teal-400 to-cyan-400 text-white p-8">
               <CardTitle className="text-center text-3xl font-bold">
                 <div className="flex items-center justify-center gap-3">
                   <Zap className="h-8 w-8" />🏆 Battle Results! 🏆
@@ -184,8 +184,8 @@ export default function StockComparisonKids() {
             </CardHeader>
             <CardContent className="p-8">
               <div className="space-y-8">
-                <div className="bg-yellow-100 p-6 rounded-2xl border-4 border-yellow-200">
-                  <h3 className="font-bold text-yellow-800 mb-4 text-2xl text-center">💰 Price Battle!</h3>
+                <div className="bg-teal-100 p-6 rounded-2xl border-4 border-teal-200">
+                  <h3 className="font-bold text-teal-800 mb-4 text-2xl text-center">💰 Price Battle!</h3>
                   <div className="flex items-center justify-center gap-6 text-2xl">
                     <span className="font-bold text-blue-600">
                       {stock1Data?.symbol}: ${stock1Data?.price.toFixed(2)}
@@ -195,7 +195,7 @@ export default function StockComparisonKids() {
                       {stock2Data?.symbol}: ${stock2Data?.price.toFixed(2)}
                     </span>
                   </div>
-                  <p className="text-center mt-4 text-yellow-800 text-xl font-medium">
+                  <p className="text-center mt-4 text-teal-800 text-xl font-medium">
                     {stock1Data &&
                       stock2Data &&
                       (stock1Data.price > stock2Data.price
