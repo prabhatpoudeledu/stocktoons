@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: "StockToons - Learn Investing the Fun Way",
   description:
     "A colorful and engaging platform to learn about stocks, investing, and financial literacy for all ages.",
-    generator: 'v0.dev'
+  generator: "v0.dev",
 }
 
 export default function RootLayout({
@@ -31,7 +31,7 @@ export default function RootLayout({
           <AuthProvider>
             <DisplayModeProvider>
               <KidsThemeWrapper>
-                <div className="min-h-screen flex flex-col bg-gradient-to-br from-green-50 via-blue-50 to-purple-50">
+                <div className="min-h-screen flex flex-col bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50">
                   <Navbar />
                   <main className="flex-1">{children}</main>
                   <Footer />

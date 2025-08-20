@@ -1,44 +1,86 @@
-import Link from "next/link"
+"use client"
+
 import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { TrendingUp, TrendingDown, Star } from "lucide-react"
+import Link from "next/link"
+import { useAuth } from "@/contexts/auth-context"
 
 interface StockCardProps {
   symbol: string
-  name?: string
-  price?: number
-  change?: number
+  name: string
+  price: number
+  change: number
+  sector?: string
+  volume?: string
 }
 
-export default function StockCard({ symbol, name, price, change }: StockCardProps) {
-  const isPositive = change && change >= 0
-  const changeColor = isPositive ? "positive" : "negative"
-  const changeSymbol = isPositive ? "+" : ""
+export default function StockCard({ symbol, name, price, change, sector, volume }: StockCardProps) {
+  const { user, isInWatchlist, addToWatchlist } = useAuth()
+  const isPositive = change >= 0
+  const inWatchlist = isInWatchlist(symbol)
+
+  const handleAddToWatchlist = async () => {
+    if (!user) return
+    await addToWatchlist(symbol)
+  }
 
   return (
-    <Link href={`/stocks/${symbol}`}>
-      <Card className="bg-card border border-border hover:border-primary/50 transition-colors">
-        <CardContent className="p-6">
-          <div className="flex justify-between items-start mb-4">
-            <div>
-              <h3 className="text-xl font-bold">{symbol}</h3>
-              {name && <p className="text-sm text-muted-foreground">{name}</p>}
+    <Card className="card-primary hover-lift">
+      <CardContent className="p-6">
+        <div className="flex justify-between items-start mb-4">
+          <div className="flex-1">
+            <div className="flex items-center gap-3 mb-2">
+              <h3 className="font-bold text-xl text-slate-800">{symbol}</h3>
+              {sector && (
+                <Badge className="badge-secondary">
+                  {sector === "Technology" ? "💻" : sector === "Healthcare" ? "🏥" : "🏢"} {sector}
+                </Badge>
+              )}
             </div>
-            {price && change && (
-              <div className="text-right">
-                <p className="text-lg font-semibold">${price.toFixed(2)}</p>
-                <p className={`${changeColor} text-sm`}>
-                  {changeSymbol}
-                  {change}%
-                </p>
+            <p className="text-slate-600 font-medium mb-3 line-clamp-1">{name}</p>
+
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-2xl font-bold text-slate-800">${price.toFixed(2)}</span>
+                <div
+                  className={`flex items-center gap-1 font-bold ${isPositive ? "text-emerald-600" : "text-rose-600"}`}
+                >
+                  {isPositive ? <TrendingUp className="h-4 w-4" /> : <TrendingDown className="h-4 w-4" />}
+                  <span>
+                    {isPositive ? "+" : ""}
+                    {change.toFixed(2)}%
+                  </span>
+                </div>
               </div>
-            )}
-          </div>
-          <div className="h-12 w-full bg-secondary/50 rounded-md overflow-hidden relative">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-xs text-muted-foreground">Chart preview</span>
+              {volume && <p className="text-sm text-slate-500">Volume: {volume}</p>}
             </div>
           </div>
-        </CardContent>
-      </Card>
-    </Link>
+
+          {user && (
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-10 w-10 rounded-full"
+              onClick={handleAddToWatchlist}
+              disabled={inWatchlist}
+            >
+              <Star
+                className={`h-5 w-5 transition-colors ${
+                  inWatchlist ? "fill-emerald-400 text-emerald-400" : "text-slate-400 hover:text-emerald-400"
+                }`}
+              />
+            </Button>
+          )}
+        </div>
+
+        <div className="flex gap-2">
+          <Link href={`/stocks/${symbol}`} className="flex-1">
+            <Button className="w-full btn-primary">View Details 📊</Button>
+          </Link>
+        </div>
+      </CardContent>
+    </Card>
   )
 }

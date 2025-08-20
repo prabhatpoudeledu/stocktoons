@@ -12,6 +12,9 @@ import {
   Target,
   Briefcase,
   TrendingDown,
+  Globe,
+  Shield,
+  Rocket,
 } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -48,7 +51,6 @@ export function HomePageAdult() {
       const response = await fetch("/api/market/indices")
       if (response.ok) {
         const data = await response.json()
-        // Ensure we have an array
         if (data.indices && Array.isArray(data.indices)) {
           setMarketData(data.indices)
         } else {
@@ -75,7 +77,6 @@ export function HomePageAdult() {
       const response = await fetch("/api/stocks/trending")
       if (response.ok) {
         const data = await response.json()
-        // Ensure we have an array
         if (data.stocks && Array.isArray(data.stocks)) {
           setTopStocks(data.stocks)
         } else {
@@ -182,17 +183,19 @@ export function HomePageAdult() {
 
   if (loading) {
     return (
-      <div className="space-y-8">
-        <div className="animate-pulse space-y-8">
-          <div className="h-32 bg-gradient-to-r from-purple-100 to-pink-100 rounded-xl"></div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[...Array(4)].map((_, i) => (
-              <div key={i} className="h-24 bg-gradient-to-r from-blue-100 to-cyan-100 rounded-xl"></div>
-            ))}
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div className="h-64 bg-gradient-to-r from-green-100 to-emerald-100 rounded-xl"></div>
-            <div className="h-64 bg-gradient-to-r from-purple-100 to-pink-100 rounded-xl"></div>
+      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50">
+        <div className="container mx-auto px-4 py-8">
+          <div className="animate-pulse space-y-8">
+            <div className="h-32 bg-gradient-to-r from-emerald-100 to-blue-100 rounded-3xl"></div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[...Array(4)].map((_, i) => (
+                <div key={i} className="h-24 bg-gradient-to-r from-blue-100 to-purple-100 rounded-3xl"></div>
+              ))}
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div className="h-64 bg-gradient-to-r from-emerald-100 to-cyan-100 rounded-3xl"></div>
+              <div className="h-64 bg-gradient-to-r from-purple-100 to-rose-100 rounded-3xl"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -200,214 +203,229 @@ export function HomePageAdult() {
   }
 
   return (
-    <div className="space-y-8">
-      {/* Welcome Section */}
-      <div className="text-center py-12 bg-gradient-to-r from-purple-300 via-pink-300 via-blue-300 to-green-300 rounded-xl text-purple-800 shadow-2xl">
-        <h1 className="text-5xl font-bold mb-4">StockToons Professional</h1>
-        <p className="text-xl max-w-2xl mx-auto opacity-90">
-          Advanced market analysis, real-time data, and professional trading tools
-        </p>
-        <div className="mt-6 flex items-center justify-center gap-4 text-sm opacity-75">
-          <div className="flex items-center gap-2">
-            <Activity className="h-4 w-4" />
-            <span>Live Data</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Target className="h-4 w-4" />
-            <span>Last Updated: {formatTime(lastUpdate)}</span>
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50">
+      <div className="container mx-auto px-4 py-8 space-y-8">
+        {/* Welcome Section */}
+        <div className="text-center py-12 bg-gradient-to-r from-emerald-200 via-blue-200 to-purple-200 rounded-3xl text-slate-800 shadow-2xl card-pattern">
+          <div className="relative z-10">
+            <h1 className="text-5xl font-bold mb-4 text-gradient-primary">StockToons Professional</h1>
+            <p className="text-xl max-w-2xl mx-auto text-slate-700 font-medium">
+              Advanced market analysis, real-time data, and professional trading tools
+            </p>
+            <div className="mt-6 flex items-center justify-center gap-6 text-sm text-slate-600">
+              <div className="flex items-center gap-2 bg-white/70 px-4 py-2 rounded-full">
+                <Activity className="h-4 w-4 text-emerald-600" />
+                <span className="font-medium">Live Data</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white/70 px-4 py-2 rounded-full">
+                <Target className="h-4 w-4 text-blue-600" />
+                <span className="font-medium">Last Updated: {formatTime(lastUpdate)}</span>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Market Overview */}
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
-            Market Overview
-          </h2>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => {
-              fetchMarketData()
-              fetchTopStocks()
-              setLastUpdate(new Date())
-            }}
-            className="flex items-center gap-2 border-purple-300 text-purple-600 hover:bg-purple-50 bg-transparent"
-          >
-            <Activity className="h-4 w-4" />
-            Refresh
-          </Button>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {marketData.map((market) => (
-            <Card
-              key={market.symbol}
-              className="bg-gradient-to-br from-white to-purple-50 border border-purple-200 hover:border-pink-300 transition-all duration-300 hover:shadow-lg"
+        {/* Market Overview */}
+        <div className="space-y-6">
+          <div className="flex items-center justify-between">
+            <h2 className="text-3xl font-bold text-gradient-primary">Market Overview</h2>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                fetchMarketData()
+                fetchTopStocks()
+                setLastUpdate(new Date())
+              }}
+              className="flex items-center gap-2 border-emerald-300 text-emerald-700 hover:bg-emerald-50 bg-white font-bold rounded-2xl"
             >
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-semibold text-purple-600 uppercase tracking-wide">{market.symbol}</p>
-                    <p className="text-3xl font-bold text-gray-900 mt-1">{market.value}</p>
+              <Activity className="h-4 w-4" />
+              Refresh
+            </Button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {marketData.map((market) => (
+              <Card key={market.symbol} className="card-primary hover-lift">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-bold text-emerald-600 uppercase tracking-wide">{market.symbol}</p>
+                      <p className="text-3xl font-bold text-slate-900 mt-1">{market.value}</p>
+                    </div>
+                    <div
+                      className={`flex items-center px-3 py-1 rounded-full font-bold ${
+                        market.positive ? "bg-emerald-100 text-emerald-700" : "bg-rose-100 text-rose-700"
+                      }`}
+                    >
+                      {market.positive ? (
+                        <ArrowUpRight className="h-4 w-4 mr-1" />
+                      ) : (
+                        <ArrowDownRight className="h-4 w-4 mr-1" />
+                      )}
+                      <span className="text-sm">{market.changePercent}</span>
+                    </div>
                   </div>
-                  <div
-                    className={`flex items-center px-3 py-1 rounded-full ${
-                      market.positive ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
-                    }`}
-                  >
-                    {market.positive ? (
-                      <ArrowUpRight className="h-4 w-4 mr-1" />
-                    ) : (
-                      <ArrowDownRight className="h-4 w-4 mr-1" />
-                    )}
-                    <span className="text-sm font-bold">{market.changePercent}</span>
+                  <div className="mt-2">
+                    <span className={`text-sm font-bold ${market.positive ? "text-emerald-600" : "text-rose-600"}`}>
+                      {market.change}
+                    </span>
                   </div>
-                </div>
-                <div className="mt-2">
-                  <span className={`text-sm font-medium ${market.positive ? "text-green-600" : "text-red-600"}`}>
-                    {market.change}
-                  </span>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        {/* Quick Actions and Top Stocks */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Quick Actions */}
+          <Card className="card-secondary">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-blue-800">
+                <Briefcase className="h-6 w-6 text-blue-600" />
+                Professional Tools
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <Link href="/analysis">
+                <Button className="w-full justify-start btn-accent text-lg py-6" size="lg">
+                  <PieChart className="h-5 w-5 mr-3" />
+                  Advanced Market Analysis
+                </Button>
+              </Link>
+              <Link href="/watchlist">
+                <Button className="w-full justify-start btn-secondary text-lg py-6" size="lg">
+                  <TrendingUp className="h-5 w-5 mr-3" />
+                  Portfolio Watchlist
+                </Button>
+              </Link>
+              <Link href="/stocks/categories">
+                <Button className="w-full justify-start btn-primary text-lg py-6" size="lg">
+                  <BarChart3 className="h-5 w-5 mr-3" />
+                  Stock Categories
+                </Button>
+              </Link>
+              <Link href="/search">
+                <Button
+                  className="w-full justify-start bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-lg py-6"
+                  size="lg"
+                >
+                  <DollarSign className="h-5 w-5 mr-3" />
+                  Stock Search & Analysis
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+
+          {/* Top Performing Stocks */}
+          <Card className="card-accent">
+            <CardHeader className="flex flex-row items-center justify-between">
+              <CardTitle className="flex items-center gap-2 text-purple-800">
+                <TrendingUp className="h-6 w-6 text-purple-600" />
+                Top Performers
+              </CardTitle>
+              <Link href="/news">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border-purple-300 text-purple-700 hover:bg-purple-100 bg-white font-bold rounded-2xl"
+                >
+                  View Market News
+                </Button>
+              </Link>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {topStocks.slice(0, 6).map((stock) => (
+                <Link key={stock.symbol} href={`/stocks/${stock.symbol}`}>
+                  <div className="flex items-center justify-between p-4 hover:bg-white rounded-2xl cursor-pointer transition-all duration-300 hover:shadow-md border border-transparent hover:border-purple-200">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-purple-600 rounded-2xl flex items-center justify-center text-white font-bold text-sm">
+                          {stock.symbol.slice(0, 2)}
+                        </div>
+                        <div>
+                          <p className="font-bold text-slate-900">{stock.symbol}</p>
+                          <p className="text-sm text-slate-600 truncate max-w-32">{stock.name}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <p className="font-bold text-slate-900 text-lg">{stock.price}</p>
+                      <div className="flex items-center gap-1">
+                        <span className={`text-sm font-bold ${stock.positive ? "text-emerald-600" : "text-rose-600"}`}>
+                          {stock.changePercent}
+                        </span>
+                        {stock.positive ? (
+                          <TrendingUp className="h-3 w-3 text-emerald-600" />
+                        ) : (
+                          <TrendingDown className="h-3 w-3 text-rose-600" />
+                        )}
+                      </div>
+                      <p className="text-xs text-slate-500">Vol: {stock.volume}</p>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Market Statistics */}
+        <Card className="bg-gradient-to-r from-cyan-100 to-blue-100 border-4 border-cyan-200 rounded-3xl shadow-xl">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-cyan-800">
+              <Activity className="h-6 w-6 text-cyan-600" />
+              Market Statistics
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="text-center p-4 bg-white rounded-2xl border-2 border-cyan-200">
+                <p className="text-3xl font-bold text-emerald-600">{topStocks.filter((s) => s.positive).length}</p>
+                <p className="text-sm text-cyan-700 font-medium">Gainers</p>
+              </div>
+              <div className="text-center p-4 bg-white rounded-2xl border-2 border-cyan-200">
+                <p className="text-3xl font-bold text-rose-600">{topStocks.filter((s) => !s.positive).length}</p>
+                <p className="text-sm text-cyan-700 font-medium">Losers</p>
+              </div>
+              <div className="text-center p-4 bg-white rounded-2xl border-2 border-cyan-200">
+                <p className="text-3xl font-bold text-blue-600">{marketData.filter((m) => m.positive).length}</p>
+                <p className="text-sm text-cyan-700 font-medium">Indices Up</p>
+              </div>
+              <div className="text-center p-4 bg-white rounded-2xl border-2 border-cyan-200">
+                <p className="text-3xl font-bold text-purple-600">{topStocks.length}</p>
+                <p className="text-sm text-cyan-700 font-medium">Active Stocks</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Feature Highlights */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Card className="bg-gradient-to-br from-emerald-100 to-emerald-200 border-4 border-emerald-300 rounded-3xl shadow-xl">
+            <CardContent className="p-8 text-center">
+              <Rocket className="h-12 w-12 mx-auto mb-4 text-emerald-600" />
+              <div className="text-4xl font-bold mb-2 text-emerald-800">Real-Time</div>
+              <div className="font-bold text-lg text-emerald-700">Live Market Data</div>
+            </CardContent>
+          </Card>
+          <Card className="bg-gradient-to-br from-blue-100 to-blue-200 border-4 border-blue-300 rounded-3xl shadow-xl">
+            <CardContent className="p-8 text-center">
+              <Shield className="h-12 w-12 mx-auto mb-4 text-blue-600" />
+              <div className="text-4xl font-bold mb-2 text-blue-800">Secure</div>
+              <div className="font-bold text-lg text-blue-700">Protected Trading</div>
+            </CardContent>
+          </Card>
+          <Card className="bg-gradient-to-br from-purple-100 to-purple-200 border-4 border-purple-300 rounded-3xl shadow-xl">
+            <CardContent className="p-8 text-center">
+              <Globe className="h-12 w-12 mx-auto mb-4 text-purple-600" />
+              <div className="text-4xl font-bold mb-2 text-purple-800">Global</div>
+              <div className="font-bold text-lg text-purple-700">Worldwide Markets</div>
+            </CardContent>
+          </Card>
         </div>
       </div>
-
-      {/* Quick Actions and Top Stocks */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Quick Actions */}
-        <Card className="bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-200">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-blue-800">
-              <Briefcase className="h-6 w-6 text-blue-600" />
-              Professional Tools
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <Link href="/analysis">
-              <Button
-                className="w-full justify-start bg-gradient-to-r from-purple-300 to-pink-300 hover:from-purple-400 hover:to-pink-400 text-purple-800 font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-                size="lg"
-              >
-                <PieChart className="h-5 w-5 mr-3" />
-                Advanced Market Analysis
-              </Button>
-            </Link>
-            <Link href="/watchlist">
-              <Button
-                className="w-full justify-start bg-gradient-to-r from-blue-300 to-cyan-300 hover:from-blue-400 hover:to-cyan-400 text-blue-800 font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-                size="lg"
-              >
-                <TrendingUp className="h-5 w-5 mr-3" />
-                Portfolio Watchlist
-              </Button>
-            </Link>
-            <Link href="/stocks/categories">
-              <Button
-                className="w-full justify-start bg-gradient-to-r from-green-300 to-emerald-300 hover:from-green-400 hover:to-emerald-400 text-green-800 font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-                size="lg"
-              >
-                <BarChart3 className="h-5 w-5 mr-3" />
-                Stock Categories
-              </Button>
-            </Link>
-            <Link href="/search">
-              <Button
-                className="w-full justify-start bg-gradient-to-r from-teal-300 to-cyan-300 hover:from-teal-400 hover:to-cyan-400 text-teal-800 font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-                size="lg"
-              >
-                <DollarSign className="h-5 w-5 mr-3" />
-                Stock Search & Analysis
-              </Button>
-            </Link>
-          </CardContent>
-        </Card>
-
-        {/* Top Performing Stocks */}
-        <Card className="bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-200">
-          <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle className="flex items-center gap-2 text-purple-800">
-              <TrendingUp className="h-6 w-6 text-purple-600" />
-              Top Performers
-            </CardTitle>
-            <Link href="/news">
-              <Button
-                variant="outline"
-                size="sm"
-                className="border-purple-300 text-purple-700 hover:bg-purple-100 bg-transparent"
-              >
-                View Market News
-              </Button>
-            </Link>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            {topStocks.slice(0, 6).map((stock) => (
-              <Link key={stock.symbol} href={`/stocks/${stock.symbol}`}>
-                <div className="flex items-center justify-between p-4 hover:bg-white rounded-xl cursor-pointer transition-all duration-300 hover:shadow-md border border-transparent hover:border-purple-200">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-400 rounded-lg flex items-center justify-center text-white font-bold text-sm">
-                        {stock.symbol.slice(0, 2)}
-                      </div>
-                      <div>
-                        <p className="font-bold text-gray-900">{stock.symbol}</p>
-                        <p className="text-sm text-gray-600 truncate max-w-32">{stock.name}</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-bold text-gray-900 text-lg">{stock.price}</p>
-                    <div className="flex items-center gap-1">
-                      <span className={`text-sm font-semibold ${stock.positive ? "text-green-600" : "text-red-600"}`}>
-                        {stock.changePercent}
-                      </span>
-                      {stock.positive ? (
-                        <TrendingUp className="h-3 w-3 text-green-600" />
-                      ) : (
-                        <TrendingDown className="h-3 w-3 text-red-600" />
-                      )}
-                    </div>
-                    <p className="text-xs text-gray-500">Vol: {stock.volume}</p>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Market Statistics */}
-      <Card className="bg-gradient-to-r from-teal-50 to-cyan-50 border border-teal-200">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-teal-800">
-            <Activity className="h-6 w-6 text-teal-600" />
-            Market Statistics
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="text-center">
-              <p className="text-2xl font-bold text-green-600">{topStocks.filter((s) => s.positive).length}</p>
-              <p className="text-sm text-teal-600">Gainers</p>
-            </div>
-            <div className="text-center">
-              <p className="text-2xl font-bold text-red-600">{topStocks.filter((s) => !s.positive).length}</p>
-              <p className="text-sm text-teal-600">Losers</p>
-            </div>
-            <div className="text-center">
-              <p className="text-2xl font-bold text-blue-600">{marketData.filter((m) => m.positive).length}</p>
-              <p className="text-sm text-teal-600">Indices Up</p>
-            </div>
-            <div className="text-center">
-              <p className="text-2xl font-bold text-purple-600">{topStocks.length}</p>
-              <p className="text-sm text-teal-600">Active Stocks</p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   )
 }

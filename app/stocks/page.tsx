@@ -114,7 +114,7 @@ export default function StocksPage() {
       positive: true,
       stocks: 145,
       emoji: "💻",
-      color: "from-violet-400 to-purple-500",
+      color: "from-blue-400 to-blue-500",
     },
     {
       name: "Healthcare",
@@ -122,11 +122,32 @@ export default function StocksPage() {
       positive: true,
       stocks: 89,
       emoji: "🏥",
-      color: "from-emerald-400 to-teal-500",
+      color: "from-emerald-400 to-emerald-500",
     },
-    { name: "Finance", change: "+0.92%", positive: true, stocks: 67, emoji: "🏦", color: "from-cyan-400 to-blue-500" },
-    { name: "Energy", change: "-1.23%", positive: false, stocks: 34, emoji: "⚡", color: "from-rose-400 to-pink-500" },
-    { name: "Consumer", change: "+0.45%", positive: true, stocks: 78, emoji: "🛍️", color: "from-orange-400 to-red-500" },
+    {
+      name: "Finance",
+      change: "+0.92%",
+      positive: true,
+      stocks: 67,
+      emoji: "🏦",
+      color: "from-cyan-400 to-cyan-500",
+    },
+    {
+      name: "Energy",
+      change: "-1.23%",
+      positive: false,
+      stocks: 34,
+      emoji: "⚡",
+      color: "from-rose-400 to-rose-500",
+    },
+    {
+      name: "Consumer",
+      change: "+0.45%",
+      positive: true,
+      stocks: 78,
+      emoji: "🛍️",
+      color: "from-purple-400 to-purple-500",
+    },
   ]
 
   useEffect(() => {
@@ -162,18 +183,18 @@ export default function StocksPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-sky-50 via-indigo-50 to-purple-50">
+      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50">
         <div className="container mx-auto px-4 py-8">
           <div className="animate-pulse space-y-8">
-            <div className="h-8 bg-gradient-to-r from-emerald-200 to-teal-200 rounded w-1/4 mx-auto"></div>
+            <div className="h-8 bg-gradient-to-r from-emerald-200 to-blue-200 rounded w-1/4 mx-auto"></div>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               {[...Array(4)].map((_, i) => (
-                <div key={i} className="h-32 bg-gradient-to-r from-violet-100 to-purple-100 rounded-3xl"></div>
+                <div key={i} className="h-32 bg-gradient-to-r from-blue-100 to-purple-100 rounded-3xl"></div>
               ))}
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[...Array(6)].map((_, i) => (
-                <div key={i} className="h-48 bg-gradient-to-r from-rose-100 to-pink-100 rounded-3xl"></div>
+                <div key={i} className="h-48 bg-gradient-to-r from-emerald-100 to-cyan-100 rounded-3xl"></div>
               ))}
             </div>
           </div>
@@ -183,18 +204,16 @@ export default function StocksPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-sky-50 via-indigo-50 to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50">
       <div className="container mx-auto px-4 py-8 space-y-8">
         {/* Header */}
         <div className="text-center space-y-4">
-          <div className="inline-flex items-center gap-3 bg-gradient-to-r from-violet-500 to-purple-500 text-white px-8 py-4 rounded-full mb-6 shadow-lg">
+          <div className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-8 py-4 rounded-full mb-6 shadow-lg">
             <BarChart3 className="h-7 w-7" />
             <span className="font-bold text-xl">Stock Adventure Hub! 📈</span>
           </div>
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent">
-            Explore Amazing Stocks! 🚀
-          </h1>
-          <p className="text-lg text-slate-700 max-w-2xl mx-auto">
+          <h1 className="text-5xl font-bold text-gradient-primary">Explore Amazing Stocks! 🚀</h1>
+          <p className="text-lg text-slate-700 max-w-2xl mx-auto font-medium">
             Discover real-time stock prices, cool market trends, and awesome investment opportunities! 🌟
           </p>
         </div>
@@ -202,10 +221,7 @@ export default function StocksPage() {
         {/* Market Indices */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           {marketIndices.map((index, i) => (
-            <Card
-              key={i}
-              className="bg-white border-4 border-indigo-100 hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl"
-            >
+            <Card key={i} className="card-primary hover-lift">
               <CardContent className="p-8 text-center">
                 <div className="text-4xl mb-3">{index.emoji}</div>
                 <h3 className="font-bold text-slate-800 mb-3 text-lg">{index.name}</h3>
@@ -219,23 +235,20 @@ export default function StocksPage() {
         </div>
 
         {/* Search and Quick Actions */}
-        <Card className="bg-white border-4 border-indigo-100 shadow-xl rounded-3xl">
+        <Card className="card-secondary">
           <CardContent className="p-8">
             <div className="flex flex-col md:flex-row gap-4 items-center">
               <div className="flex-1 relative">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-violet-500 h-5 w-5" />
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-blue-500 h-5 w-5" />
                 <Input
                   placeholder="Search for awesome stocks by name or symbol... 🔍"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-12 border-violet-200 focus:border-violet-400 focus:ring-violet-400 text-lg py-4 rounded-2xl"
+                  className="pl-12 input-secondary text-lg py-4"
                 />
               </div>
               <div className="flex gap-3">
-                <Button
-                  asChild
-                  className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold px-6 py-4 rounded-full transform hover:scale-105 transition-all duration-300"
-                >
+                <Button asChild className="btn-accent px-6 py-4">
                   <Link href="/stocks/compare">
                     <PieChart className="h-5 w-5 mr-2" />
                     Compare Stocks! 📊
@@ -244,7 +257,7 @@ export default function StocksPage() {
                 <Button
                   asChild
                   variant="outline"
-                  className="border-violet-200 text-violet-700 hover:bg-violet-50 bg-transparent font-bold px-6 py-4 rounded-full"
+                  className="border-blue-200 text-blue-700 hover:bg-blue-50 bg-white font-bold px-6 py-4 rounded-full"
                 >
                   <Link href="/stocks/categories">
                     <Target className="h-5 w-5 mr-2" />
@@ -259,16 +272,16 @@ export default function StocksPage() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Main Stock Lists */}
           <div className="lg:col-span-3">
-            <Card className="bg-white border-4 border-indigo-100 shadow-xl rounded-3xl">
+            <Card className="card-primary">
               <CardHeader>
                 <CardTitle className="text-slate-800 text-2xl font-bold flex items-center gap-3">
-                  <Sparkles className="h-7 w-7 text-violet-600" />
+                  <Sparkles className="h-7 w-7 text-blue-600" />
                   Stock Market Explorer! 🚀
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <Tabs value={selectedTab} onValueChange={setSelectedTab}>
-                  <TabsList className="grid w-full grid-cols-4 bg-violet-50 rounded-2xl p-2">
+                  <TabsList className="grid w-full grid-cols-4 bg-blue-50 rounded-2xl p-2">
                     <TabsTrigger
                       value="trending"
                       className="data-[state=active]:bg-emerald-500 data-[state=active]:text-white font-bold rounded-xl"
@@ -283,7 +296,7 @@ export default function StocksPage() {
                     </TabsTrigger>
                     <TabsTrigger
                       value="active"
-                      className="data-[state=active]:bg-violet-500 data-[state=active]:text-white font-bold rounded-xl"
+                      className="data-[state=active]:bg-purple-500 data-[state=active]:text-white font-bold rounded-xl"
                     >
                       <Activity className="h-4 w-4 mr-2" />⚡ Most Active
                     </TabsTrigger>
@@ -396,7 +409,7 @@ export default function StocksPage() {
             </Card>
 
             {/* Market Stats */}
-            <Card className="bg-gradient-to-br from-emerald-100 to-teal-100 border-4 border-emerald-200 rounded-3xl">
+            <Card className="bg-gradient-to-br from-emerald-100 to-emerald-200 border-4 border-emerald-300 rounded-3xl">
               <CardHeader>
                 <CardTitle className="text-emerald-800 text-xl">📊 Market Magic Stats</CardTitle>
               </CardHeader>
@@ -421,15 +434,12 @@ export default function StocksPage() {
             </Card>
 
             {/* Quick Actions */}
-            <Card className="bg-gradient-to-br from-violet-100 to-purple-100 border-4 border-violet-200 rounded-3xl">
+            <Card className="bg-gradient-to-br from-purple-100 to-purple-200 border-4 border-purple-300 rounded-3xl">
               <CardHeader>
-                <CardTitle className="text-violet-800 text-xl">⚡ Quick Adventures</CardTitle>
+                <CardTitle className="text-purple-800 text-xl">⚡ Quick Adventures</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <Button
-                  asChild
-                  className="w-full bg-violet-600 hover:bg-violet-700 text-white font-bold py-4 rounded-full"
-                >
+                <Button asChild className="w-full btn-accent py-4">
                   <Link href="/watchlist">
                     <Target className="h-5 w-5 mr-2" />
                     My Watchlist! 👀
@@ -438,7 +448,7 @@ export default function StocksPage() {
                 <Button
                   asChild
                   variant="outline"
-                  className="w-full border-violet-200 text-violet-700 hover:bg-violet-50 bg-transparent font-bold py-4 rounded-full"
+                  className="w-full border-purple-200 text-purple-700 hover:bg-purple-50 bg-white font-bold py-4 rounded-full"
                 >
                   <Link href="/analysis">
                     <BarChart3 className="h-5 w-5 mr-2" />
@@ -448,7 +458,7 @@ export default function StocksPage() {
                 <Button
                   asChild
                   variant="outline"
-                  className="w-full border-violet-200 text-violet-700 hover:bg-violet-50 bg-transparent font-bold py-4 rounded-full"
+                  className="w-full border-purple-200 text-purple-700 hover:bg-purple-50 bg-white font-bold py-4 rounded-full"
                 >
                   <Link href="/news">
                     <Activity className="h-5 w-5 mr-2" />
@@ -462,28 +472,28 @@ export default function StocksPage() {
 
         {/* Market Summary */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <Card className="bg-gradient-to-br from-emerald-400 to-teal-500 border-4 border-emerald-200 text-white rounded-3xl shadow-xl">
+          <Card className="bg-gradient-to-br from-emerald-400 to-emerald-500 border-4 border-emerald-300 text-white rounded-3xl shadow-xl">
             <CardContent className="p-8 text-center">
               <DollarSign className="h-10 w-10 mx-auto mb-3" />
               <div className="text-4xl font-bold mb-2">$47.2T</div>
               <div className="font-bold text-lg">Total Market Magic! 💰</div>
             </CardContent>
           </Card>
-          <Card className="bg-gradient-to-br from-violet-400 to-purple-500 border-4 border-violet-200 text-white rounded-3xl shadow-xl">
+          <Card className="bg-gradient-to-br from-blue-400 to-blue-500 border-4 border-blue-300 text-white rounded-3xl shadow-xl">
             <CardContent className="p-8 text-center">
               <Activity className="h-10 w-10 mx-auto mb-3" />
               <div className="text-4xl font-bold mb-2">2.8B</div>
               <div className="font-bold text-lg">Daily Trading Fun! 📊</div>
             </CardContent>
           </Card>
-          <Card className="bg-gradient-to-br from-rose-400 to-pink-500 border-4 border-rose-200 text-white rounded-3xl shadow-xl">
+          <Card className="bg-gradient-to-br from-purple-400 to-purple-500 border-4 border-purple-300 text-white rounded-3xl shadow-xl">
             <CardContent className="p-8 text-center">
               <TrendingUp className="h-10 w-10 mx-auto mb-3" />
               <div className="text-4xl font-bold mb-2">+1.24%</div>
               <div className="font-bold text-lg">Market Growth! 🚀</div>
             </CardContent>
           </Card>
-          <Card className="bg-gradient-to-br from-cyan-400 to-blue-500 border-4 border-cyan-200 text-white rounded-3xl shadow-xl">
+          <Card className="bg-gradient-to-br from-cyan-400 to-cyan-500 border-4 border-cyan-300 text-white rounded-3xl shadow-xl">
             <CardContent className="p-8 text-center">
               <BarChart3 className="h-10 w-10 mx-auto mb-3" />
               <div className="text-4xl font-bold mb-2">847</div>
